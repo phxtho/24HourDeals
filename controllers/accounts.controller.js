@@ -49,6 +49,7 @@ accounts.post('/:id/basket', (req, res) => {
 });
 
 // this might be more logical as a seperate endpoint
+// If it were a seperate endpoint we can post a transaction object (our basket object) to the endpoint and start a transaction
 accounts.post('/:id/checkout', (req, res) => {
     const id = parseInt(req.params.id, 10);
 });
