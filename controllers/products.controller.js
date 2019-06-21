@@ -15,7 +15,6 @@ controller.get('/', (req, res) => {
     })
 });
 
-
 // get product with id
 controller.get('/:id', (req, res) => {
     res.status(200).send({
@@ -45,16 +44,10 @@ controller.put('/:id', (req, res) => {
     })
 })
 
-// delete all products
+// delete a product
 controller.delete('/', (req, res) => {
-    res.status(501).send();
-})
-
-// delete product with id
-controller.delete('/:id', (req, res) => {
-    const id = parseInt(req.params.id, 10);
     res.status(200).send({
-        message: `Delete product with id ${id}`
+        message: 'Delete product ${req.body.id}'
     })
 })
 
