@@ -1,6 +1,5 @@
 const accountsModel = {};
 
-
 // we can do a DB call to populate this if we want to
 accountsModel.accounts = [
     {

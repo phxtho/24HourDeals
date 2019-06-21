@@ -15,7 +15,7 @@ accounts.get('/:id', (req, res) => {
     const id = parseInt(req.params.id, 10);
 });
 
-// get specific account transaction history
+// get account transaction history
 accounts.get('/:id/transaction-history', (req, res) => {
     const id = parseInt(req.params.id, 10);
     res.status(200).send({
@@ -23,50 +23,51 @@ accounts.get('/:id/transaction-history', (req, res) => {
     })
 });
 
-// get specific account basket
+// get account basket
 accounts.get('/:id/basket', (req, res) => {
     const id = parseInt(req.params.id, 10);
+    res.status(200).send({
+        message: `Basket of id ${id}`
+    })
 });
 
-// replace all accounts
+// create an account
 accounts.post('/', (req, res) => [
-
+    res.status(200).send({
+        message: `Create an account`
+    })
 ]);
 
-// create all accounts
-accounts.post('/', (req, res) => {
-
-});
-
-// create account with id
-accounts.post('/:id', (req, res) => {
+// checkout on an account
+accounts.post('/:id/transactions/', (req, res) => {
     const id = parseInt(req.params.id, 10);
-});
-
-// create account basket
-accounts.post('/:id/basket', (req, res) => {
-    const id = parseInt(req.params.id, 10);
-});
-
-// this might be more logical as a seperate endpoint
-// If it were a seperate endpoint we can post a transaction object (our basket object) to the endpoint and start a transaction
-accounts.post('/:id/checkout', (req, res) => {
-    const id = parseInt(req.params.id, 10);
+    res.status(200).send({
+        message: `Checkout on account`
+    });
 });
 
 // update all accounts
 accounts.put('/', (req, res) => {
     const id = parseInt(req.params.id, 10);
+    res.status(200).send({
+        message: `Update all accounts`
+    });
 });
 
 // update account
 accounts.put('/:id', (req, res) => {
     const id = parseInt(req.params.id, 10);
+    res.status(200).send({
+        message: `Update account with id ${id}`
+    })
 });
 
 // update account basket
 accounts.put('/:id/basket', (req, res) => {
-
+    const id = parseInt(req.params.id, 10);
+    res.status(200).send({
+        message: `Update account with id ${id}`
+    })
 });
 
 module.exports = accounts;
