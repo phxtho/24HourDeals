@@ -1,19 +1,37 @@
-import express from require('express')
+const express = require('express');
+const productsModel = require('../models/products.model');
 
-const products = express();
+const controller = express();
 
-products.get('/', (req, res) => {
+controller.get('/', (req, res) => {
+
     res.status(200).send({
-        message: 'fuck git init'
+        products: productsModel.products
     })
 });
 
-products.get('/:id', (req, res) => {
+controller.get('/:id', (req, res) => {
 
 });
 
-products.post('/', (req, res) => [
+controller.post('/', (req, res) => {
 
-]);
+});
 
-module.exports = products;
+controller.put('/', (req, res) => {
+
+})
+
+controller.put('/:id', (req, res) => {
+    const id = parseInt(req.params.id, 10);
+})
+
+controller.delete('/', (req, res) => {
+
+})
+
+controller.delete('/:id', (req, res) => {
+    const id = parseInt(req.params.id, 10);
+})
+
+module.exports = controller;
