@@ -9,14 +9,16 @@
 
 const express = require('express');
 const bodyParser = require('body-parser');
+var cors = require('cors');
 
 const dealsAPI = express();
 
+// dealsAPI.use(cors);
 dealsAPI.use(bodyParser.json());
 dealsAPI.use(bodyParser.urlencoded({ extended: false }));
 
-dealsAPI.use('/products', require('./controllers/products.controller'));
-dealsAPI.use('/accounts', require('./controllers/accounts.controller'));
+dealsAPI.use('/products', cors(), require('./controllers/products.controller'));
+dealsAPI.use('/accounts', cors(), require('./controllers/accounts.controller'));
 
 const PORT = 5000;
 
