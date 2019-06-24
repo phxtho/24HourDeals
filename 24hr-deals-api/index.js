@@ -1,12 +1,3 @@
-/*
-    How to run:
-
-    1. npm install
-    2. node index.js to run
-    3. ???
-    4. Profit
-*/
-
 const express = require('express');
 const bodyParser = require('body-parser');
 var cors = require('cors');
