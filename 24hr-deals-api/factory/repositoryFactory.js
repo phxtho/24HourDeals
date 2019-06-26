@@ -8,4 +8,4 @@ const repoFactory = () => {
     });
 };
 
-module.exports = new repoFactory;
+module.exports = repoFactory;

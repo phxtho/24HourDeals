@@ -14,3 +14,5 @@ const accountRepo = () => {
         });
     }
 }
+
+module.exports = accountRepo;
