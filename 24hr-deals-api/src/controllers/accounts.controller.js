@@ -32,11 +32,12 @@ accounts.get('/:id/basket', (req, res) => {
 });
 
 // create an account
-accounts.post('/', (req, res) => [
+accounts.post('/', (req, res) => {
+    accountsModel.addAccount({id: '0', email: 'goose@mon.com', name: 'Mongoose' });
     res.status(200).send({
-        message: `Create an account`
-    })
-]);
+        message: `Created an account for goose@mon.com`
+    });
+});
 
 // checkout on an account
 accounts.post('/:id/transactions/', (req, res) => {

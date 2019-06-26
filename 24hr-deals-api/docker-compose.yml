@@ -1,6 +1,6 @@
 version: '3'
 services: 
-  api:
+  24hr-deals:
     container_name: 24hr-deals-service
     restart: always
     build: .
