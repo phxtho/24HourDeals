@@ -1,28 +1,12 @@
 const accountsModel = {};
+let repoFactory = require('../factory/repositoryFactory');
 
-// we can do a DB call to populate this if we want to
-accountsModel.accounts = [
-    {
-        name: 'Person One',
-        basket: {
-
-        }
-
-    },
-    {
-        name: 'Person Two',
-        basket: {
-
-        }
-    }
-]
-
-accountsModel.addAccount = (product) => {
-
+accountsModel.addAccount = (account) => {
+    repoFactory.accounts.insertAccount(account);
 };
 
-accountsModel.removeAccount = (product) => {
-
+accountsModel.removeAccount = (account) => {
+    repoFactory.accounts.deleteAccount(account);
 };
 
 
