@@ -1,6 +1,6 @@
 # 24 Hour Deals API
 
-Node.js + Express api 
+Node.js + Express api
 
 ## Instructions
 
@@ -8,8 +8,8 @@ Node.js + Express api
 
 `npm install`
 
-### Run 
+### Run
 
-`node index.js`
+`npm start`
 
 ### $ Make all the profit $

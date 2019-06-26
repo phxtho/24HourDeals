@@ -1,10 +1,9 @@
 const express = require('express');
 const bodyParser = require('body-parser');
-var cors = require('cors');
+const cors = require('cors');
 
 const dealsAPI = express();
 
-// dealsAPI.use(cors);
 dealsAPI.use(bodyParser.json());
 dealsAPI.use(bodyParser.urlencoded({ extended: false }));
 
