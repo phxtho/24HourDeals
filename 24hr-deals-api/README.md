@@ -13,3 +13,7 @@ Node.js + Express api
 `node index.js`
 
 ### $ Make all the profit $
+
+## Docker
+
+Run `docker-compose up -d `  which will build the images for the API and Database and host the service on port 5000 
