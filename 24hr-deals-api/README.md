@@ -1,19 +1,29 @@
 # 24 Hour Deals API
 
-Node.js + Express api 
+Node.js + Express api + MongoDB <br>
+You can run the service locally or through docker
 
-## Instructions
+## Docker
+
+### Build Image
+`docker build --rm -t 24hr-deals-api:1 .`
+
+### Run
+`docker-compose up -d`<br> will bring up the containers for the API and Database and host the service on port 5000 
+
+### Shutdown
+`docker-compose down` <br> will shutdown the containers down and remove them
+
+## Run without Docker
 
 ### Install dependencies
 
 `npm install`
 
-### Run 
+### Run express Server
 
 `node index.js`
 
-### $ Make all the profit $
+### Install mongo db locally 
 
-## Docker
-
-Run `docker-compose up -d `  which will build the images for the API and Database and host the service on port 5000 
+<https://docs.mongodb.com/manual/installation>
