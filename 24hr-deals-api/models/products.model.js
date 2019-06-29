@@ -4,14 +4,23 @@ productsModel.products = [
     {
         id: 0,
         name: 'TV One',
-        category: 'Electronics',
-        description: 'this is a pure dog tv'
+        description: 'this is a pure dog tv',
+        price: 100,
+        stock: 5,
+        dealEndTime: "July 5, 2019 13:55:00",
+        dealDuration: 1,
+        category: 'Electronics'
     },
     {
         id: 1,
         name: 'TV Two',
         category: 'Electronics',
-        description: 'this is a pure dog tv'
+        description: 'this is a pure dog tv',
+        price: 100,
+        stock: 5,
+        dealEndTime: "July 5, 2019 13:55:00",
+        dealDuration: 1,
+        category: 'Electronics'
     }
 ]
 
