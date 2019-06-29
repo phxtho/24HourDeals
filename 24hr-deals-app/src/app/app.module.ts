@@ -16,11 +16,16 @@ import { FlexLayoutModule } from '@angular/flex-layout';
 
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { AllProductsComponent } from './all-products/all-products.component';
+import { BasketComponent } from './basket/basket.component';
+
+import {CountDown} from "ng2-date-countdown";
 
 @NgModule({
   declarations: [
     AppComponent,
-    AllProductsComponent
+    AllProductsComponent,
+    BasketComponent,
+    CountDown
   ],
   imports: [
     BrowserModule,
