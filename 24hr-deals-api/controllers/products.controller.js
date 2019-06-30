@@ -19,7 +19,7 @@ controller.get('/', (req, res) => {
 controller.get('/:id', (req, res) => {
     const id = parseInt(req.params.id, 10);
 
-    product = productsModel.products.find(x => x.id === id);
+    product = productsModel.getProduct(id);
 
     if (!!product) {
         res.status(200).send({
@@ -36,7 +36,6 @@ controller.get('/:id', (req, res) => {
 controller.post('/', (req, res) => {
     if (productsModel.addProduct(req.body)) {
         res.status(200).send({
-            message: 'Successfully created product',
             product: productsModel.getProduct(req.body.id)
         })
     } else {
@@ -47,13 +46,14 @@ controller.post('/', (req, res) => {
 });
 
 // update all products
+// TODO: implement
 controller.put('/', (req, res) => {
     res.status(200).send({
         message: 'Update all products'
     })
 })
 
-// update product with id
+// update product
 controller.put('/:id', (req, res) => {
     const id = parseInt(req.params.id, 10);
 
