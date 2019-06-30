@@ -1,10 +1,12 @@
 import { NgModule } from '@angular/core';
 import { Routes, RouterModule } from '@angular/router';
-import { AllProductsComponent } from './all-products/all-products.component';
+import { BasketComponent } from './components/basket/basket.component';
+import { LandingPageComponent } from './components/home-page/home-page.component';
 
 const routes: Routes = [
-  { path: '',   redirectTo: '/all_Products', pathMatch: 'full'},
-  { path: 'all_Products',  component: AllProductsComponent}
+  { path: '',   redirectTo: '/home', pathMatch: 'full'},
+  { path: 'home',  component: LandingPageComponent},
+  { path: 'basket',  component: BasketComponent}
 ];
 
 @NgModule({

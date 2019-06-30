@@ -13,9 +13,22 @@ accounts.get('/', (req, res) => {
 // get account by id
 accounts.get('/:id', (req, res) => {
     const id = parseInt(req.params.id, 10);
+
+    let account = accountsModel.getAccount(id)
+
+    if (!!account) {
+        res.status(200).send({
+            account: account
+        })
+    } else {
+        res.status(404).send({
+            message: 'Account not found.'
+        })
+    }
 });
 
 // get account transaction history
+// TODO: implement
 accounts.get('/:id/transaction-history', (req, res) => {
     const id = parseInt(req.params.id, 10);
     res.status(200).send({
@@ -27,19 +40,25 @@ accounts.get('/:id/transaction-history', (req, res) => {
 accounts.get('/:id/basket', (req, res) => {
     const id = parseInt(req.params.id, 10);
     res.status(200).send({
-        message: `Basket of id ${id}`
+        basket: accountsModel.getBasket(id)
     })
 });
 
 // create an account
 accounts.post('/', (req, res) => {
-    accountsModel.addAccount({id: '0', email: 'goose@mon.com', name: 'Mongoose' });
-    res.status(200).send({
-        message: `Created an account for goose@mon.com`
-    });
+    if (accountsModel.addAccount(req.body)) {
+        res.status(200).send({
+            account: accountsModel.getAccount(req.body.id)
+        })
+    } else {
+        res.status(400).send({
+            message: 'Failed to create account'
+        })
+    }
 });
 
 // checkout on an account
+// TODO: implement
 accounts.post('/:id/transactions/', (req, res) => {
     const id = parseInt(req.params.id, 10);
     res.status(200).send({
@@ -48,6 +67,7 @@ accounts.post('/:id/transactions/', (req, res) => {
 });
 
 // update all accounts
+// TODO: implement
 accounts.put('/', (req, res) => {
     const id = parseInt(req.params.id, 10);
     res.status(200).send({
@@ -58,17 +78,47 @@ accounts.put('/', (req, res) => {
 // update account
 accounts.put('/:id', (req, res) => {
     const id = parseInt(req.params.id, 10);
-    res.status(200).send({
-        message: `Update account with id ${id}`
-    })
+
+    if (accountsModel.updateAccount(req.body)) {
+        res.status(200).send({
+            message: `Updated account with id ${id}`,
+            account: accountsModel.getAccount(id)
+        })
+    } else {
+        res.status(400).send({
+            message: `Failed to update account with id: ${id}`
+        })
+    }
 });
 
 // update account basket
 accounts.put('/:id/basket', (req, res) => {
     const id = parseInt(req.params.id, 10);
-    res.status(200).send({
-        message: `Update account with id ${id}`
-    })
+
+    if (!!accountsModel.updateBasket(id, req.body)) {
+        res.status(200).send({
+            message: `Updated basket of account with id ${id}`,
+            basket: accountsModel.getBasket(id)
+        })
+    } else {
+        res.status(400).send({
+            message: `Failed to update basket of account with id ${id}`
+        })
+    }
+});
+
+accounts.delete('/:id', (req, res) => {
+    const id = parseInt(req.params.id, 10);
+
+    if (accountsModel.removeAccount(id)) {
+        res.status(200).send({
+            message: `Deleted account with id: ${id}`
+        })
+    } else {
+        res.status(404).send({
+            message: 'Resource does not exist'
+        })
+    }
 });
 
 module.exports = accounts;

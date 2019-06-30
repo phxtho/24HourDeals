@@ -1,4 +1,4 @@
-<button (click)="getProducts()">GET /products</button>
+<br />
 <div fxLayout="row" fxLayout.xs="column" fxLayoutWrap fxLayoutGap="1.0%" fxLayoutAlign="center">
     <mat-card *ngFor="let product of products" class="card">
         <mat-card-header>
@@ -7,10 +7,12 @@
         </mat-card-header>
         <img mat-card-image src="https://material.angular.io/assets/img/examples/shiba2.jpg" alt="Photo of a Shiba Inu">
         <mat-card-content>
-          <p>
+          <p fxLayoutAlign="center">
             {{product.description}}
           </p>
+          <h3 fxLayoutAlign="end">Price: R{{product.price}}</h3>
         </mat-card-content>
+        <countdown (reached)="testing()" [text]="text" units="Hours | Minutes | Seconds"  end={{product.dealEndTime}}></countdown>
         <mat-card-actions>
           <button mat-button fxFlex="10%">Buy</button>
         </mat-card-actions>

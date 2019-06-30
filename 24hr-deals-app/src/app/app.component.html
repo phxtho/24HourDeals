@@ -1,19 +1,21 @@
 <mat-toolbar color="primary">
-  <button mat-flat-button color="primary">
+  <button mat-flat-button color="primary" routerLink="/home">
     Home
   </button>
   <span class="example-fill-remaining-space"></span>
   <!-- This span is to space everything out equally -->
   <button mat-button [matMenuTriggerFor]="menu">Categories</button>
   <mat-menu #menu="matMenu">
-    <button mat-menu-item *ngFor="let i of arrayTest" (click)="getCategory(i)">Category {{i}}</button>
+    <button mat-menu-item *ngFor="let i of arrayTest" (click)="getCategory(i)">
+      Category {{ i }}
+    </button>
   </mat-menu>
   <span class="example-fill-remaining-space"></span>
   <button mat-flat-button color="primary">
     Profile
   </button>
   <span class="example-fill-remaining-space"></span>
-  <button mat-flat-button color="primary">
+  <button mat-flat-button color="primary" routerLink="/basket">
     <mat-icon>shopping_cart</mat-icon>
     <!-- <span>amount</span> -->
   </button>
