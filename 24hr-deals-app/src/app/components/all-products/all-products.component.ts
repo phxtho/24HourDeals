@@ -1,46 +1,45 @@
-import { Component, OnInit, AfterViewChecked } from '@angular/core';
-import { HttpClient } from '@angular/common/http';
-import { map } from 'rxjs/operators';
-import { ApiService } from '../services/api.service';
-import { interval, Observable, Subscription } from 'rxjs';
-import { ProductModel } from '../models/product-model';
+import { Component, OnInit, AfterViewChecked, OnDestroy } from "@angular/core";
+import { HttpClient } from "@angular/common/http";
+import { map } from "rxjs/operators";
+import { ApiService } from "../../services/product.service";
+import { interval, Observable, Subscription } from "rxjs";
+import { ProductModel } from "../../models/product/product-model";
 
 @Component({
-  selector: 'app-all-products',
-  templateUrl: './all-products.component.html',
-  styleUrls: ['./all-products.component.scss']
+  selector: "app-all-products",
+  templateUrl: "./all-products.component.html",
+  styleUrls: ["./all-products.component.scss"]
 })
-export class AllProductsComponent implements OnInit {
-
+export class AllProductsComponent implements OnInit, OnDestroy {
   private url = "http://localhost:5000";
   private products: ProductModel[];
   date: Date;
   private future: Date;
   private counter$: Observable<number>;
-  private subscription: Subscription;
+  private subscription = new Subscription();
   private message: string;
-
 
   constructor(private http: HttpClient, private apiService: ApiService) {
     setInterval(() => {
-      this.date = new Date()
-    }, 1000)
+      this.date = new Date();
+    }, 1000);
   }
 
   ngOnInit() {
     this.getAllProducts();
-
   }
 
   getAllProducts() {
-    this.apiService.getAllProducts().subscribe(res => {
-      this.products = res;
-      console.log(this.products);
-    });
+    this.subscription.add(
+      this.apiService.getAllProducts().subscribe(res => {
+        this.products = res;
+        console.log(this.products);
+      })
+    );
   }
 
   testing(event) {
-    this.getAllProducts()
+    this.getAllProducts();
   }
 
   // ngAfterViewChecked() {
