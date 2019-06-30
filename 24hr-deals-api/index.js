@@ -7,8 +7,8 @@ const dealsAPI = express();
 dealsAPI.use(bodyParser.json());
 dealsAPI.use(bodyParser.urlencoded({ extended: false }));
 
-dealsAPI.use('/products', cors(), require('./controllers/products.controller'));
-dealsAPI.use('/accounts', cors(), require('./controllers/accounts.controller'));
+dealsAPI.use('/products', cors(), require('./src/controllers/products.controller'));
+dealsAPI.use('/accounts', cors(), require('./src/controllers/accounts.controller'));
 
 const PORT = 5000;
 
