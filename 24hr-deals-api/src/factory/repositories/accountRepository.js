@@ -13,9 +13,16 @@ let accountSchema = new Schema ({
     name : {
         type: String,
         required: true
+    },
+    adresses : {
+        type : []
+    },
+    billingDetails: {
+        type : []
     }
 });
 
+// Compile model
 let mongoAccount = mongoose.model('Account', accountSchema);
 
 const accountRepo = () => {
