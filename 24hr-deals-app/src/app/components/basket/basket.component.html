@@ -1,0 +1,22 @@
+<h1 class="heading">Your Cart</h1>
+
+<app-basket-item
+  *ngFor="let basketItem of basketItems"
+  [name]="basketItem.name"
+  [description]="basketItem.description"
+  [quantity]="1"
+  [price]="basketItem.price"
+></app-basket-item>
+
+<div class="total-price">
+  <p><b>Total Price :</b> R{{ totalPrice }}</p>
+</div>
+
+<div class="button-container">
+  <button mat-raised-button color="warn" (click)='removeItems()'>
+    Remove
+  </button>
+  <button mat-raised-button color="primary" (click)='checkout()'>
+    Checkout
+  </button>
+</div>
