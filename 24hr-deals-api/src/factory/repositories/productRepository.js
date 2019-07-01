@@ -52,10 +52,7 @@ const productRepo = () => {
         });
     };
 
-    module.exports = productRepo;
-
 }
-const mongoose = require('mongoose');
-const Schema = mongoose.Schema;
+module.exports = productRepo;
 
 
