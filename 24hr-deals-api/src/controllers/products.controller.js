@@ -5,6 +5,7 @@
 
 const express = require('express');
 const productsModel = require('../models/products.model');
+const productsRepo = require('../factory/repositories/productRepository');
 
 const controller = express();
 
