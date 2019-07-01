@@ -1,22 +1,34 @@
 const mongoose = require('mongoose');
 const Schema = mongoose.Schema;
 
-let productSchema = new Schema({
-    id: {
+// Define schema
+let productSchema = new Schema ({
+    id : {
+        type: Number,
+        required: true
+    },
+    name : {
         type: String,
         required: true
     },
-    name: {
-        type: String,
-        required: true
+    desription : {
+        type: String
     },
-    description: {
-        type: String,
-        required: true
+    price : {
+        type : Number,
+        required : true
     },
-    price: {
-        type: String,
-        required: true
+    stock : {
+        type : Number
+    },
+    dealStartTime : {
+        type : Number
+    },
+    dealDuration : {
+        type: Number
+    },
+    categories : {
+        type : []
     }
 
 });
@@ -43,3 +55,7 @@ const productRepo = () => {
     module.exports = productRepo;
 
 }
+const mongoose = require('mongoose');
+const Schema = mongoose.Schema;
+
+
