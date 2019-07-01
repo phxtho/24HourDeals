@@ -1,5 +1,5 @@
 // let repoFactory = require('../factory/repositoryFactory');
-let repoFactory = require('../factory/repository.factory');
+let repoFactory = require('../factories/repository.factory');
 
 
 class AccountsModel {

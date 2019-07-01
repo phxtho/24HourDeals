@@ -15,8 +15,8 @@ mongoose
     .catch(err => console.log(err));
 
 // Mapping repo name to repo implementation
-let repoList = [{name: 'accounts', source:'./repositories/account.repository'},
-                {name: 'products', source:'./repositories/productRepository'}]; 
+let repoList = [{name: 'accounts', source:'../repositories/account.repository'},
+                {name: 'products', source:'../repositories/product.repository'}]; 
 
 // Adds repos as properties of factory                
 repoList.forEach((repo)=>{
