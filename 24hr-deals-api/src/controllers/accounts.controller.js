@@ -46,15 +46,16 @@ accounts.get('/:id/basket', (req, res) => {
 
 // create an account
 accounts.post('/', (req, res) => {
-    if (accountsModel.addAccount(req.body)) {
-        res.status(200).send({
-            account: accountsModel.getAccount(req.body.id)
-        })
-    } else {
-        res.status(400).send({
-            message: 'Failed to create account'
-        })
-    }
+    accountsModel.addAccount({email: "goose@goose.com", name : "chad"});
+    // if (true) {
+    //     res.status(200).send({
+    //         account: accountsModel.getAccount(req.body.id)
+    //     })
+    // } else {
+    //     res.status(400).send({
+    //         message: 'Failed to create account'
+    //     })
+    // }
 });
 
 // checkout on an account

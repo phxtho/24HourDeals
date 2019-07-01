@@ -3,10 +3,6 @@ const Schema = mongoose.Schema;
 
 // Define schema
 let accountSchema = new Schema({
-    id: {
-        type: String,
-        required: true
-    },
     email: {
         type: String
     },
@@ -15,22 +11,26 @@ let accountSchema = new Schema({
         required: true
     },
     adresses : {
-        type : []
+        type : Array
     },
     billingDetails: {
-        type : []
+        type : Array
     }
 });
 
 // Compile model
-let mongoAccount = mongoose.model('Account', accountSchema);
+let Account = mongoose.model('Account', accountSchema);
 
 class AccountRepo {
+    constructor(){
+        this.model = Account;
+    }
+
     insertAccount(account) {
-        let accountDoc = new mongoAccount(account);
+        let accountDoc = new Account(account);
         accountDoc.save((err, accountDoc) => {
             if (err) return console.error(err);
-            console.log('Saved: ' + accountDoc);
+            return (accountDoc);
         });
     };
 }
