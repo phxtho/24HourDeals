@@ -2,15 +2,15 @@ const mongoose = require('mongoose');
 const Schema = mongoose.Schema;
 
 // Define schema
-let accountSchema = new Schema ({
-    id : {
+let accountSchema = new Schema({
+    id: {
         type: String,
         required: true
     },
-    email : {
+    email: {
         type: String
     },
-    name : {
+    name: {
         type: String,
         required: true
     },
@@ -25,15 +25,15 @@ let accountSchema = new Schema ({
 // Compile model
 let mongoAccount = mongoose.model('Account', accountSchema);
 
-const accountRepo = () => {
-
-    this.insertAccount = (account) => {
+class AccountRepo {
+    insertAccount(account) {
         let accountDoc = new mongoAccount(account);
-        accountDoc.save((err, accountDoc)=>{
-        if(err) return console.error(err);
-        console.log('Saved: ' + accountDoc);
-    });
+        accountDoc.save((err, accountDoc) => {
+            if (err) return console.error(err);
+            console.log('Saved: ' + accountDoc);
+        });
     };
 }
 
+const accountRepo = new AccountRepo();
 module.exports = accountRepo;
