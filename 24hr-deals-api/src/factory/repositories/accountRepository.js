@@ -18,15 +18,14 @@ let accountSchema = new Schema({
 
 let mongoAccount = mongoose.model('Account', accountSchema);
 
-class AccountRepo {
-    insertAccount(account) {
-        let accountDoc = new mongoAccount(account);
-        accountDoc.save((err, accountDoc) => {
-            if (err) return console.error(err);
-            console.log('Saved: ' + accountDoc);
-        });
-    };
+const accountRepo = {};
+
+accountRepo.insertAccount = (account) => {
+    let accountDoc = new mongoAccount(account);
+    accountDoc.save((err, accountDoc) => {
+        if (err) return console.error(err);
+        console.log('Saved: ' + accountDoc);
+    });
 }
 
-const accountRepo = new AccountRepo();
 module.exports = accountRepo;

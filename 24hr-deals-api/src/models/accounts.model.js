@@ -1,20 +1,13 @@
-// let repoFactory = require('../factory/repositoryFactory');
-let repoFactory = require('../factory/repositories/accountRepository');
+const repositoryFactory = require('../factory/repositoryFactory');
+const accountsModel = {}
 
-
-class AccountsModel {
-    constructor(repoFactory) {
-        this.factory = repoFactory;
-    }
-
-    addAccount(account) {
-        this.factory.insertAccount(account);
-    };
-
-    removeAccount(account) {
-        this.factory.deleteAccount(account);
-    };
+accountsModel.addAccount = (account) => {
+    this.repositoryFactory.insertAccount(account);
 }
 
-const accountsModel = new AccountsModel(repoFactory);
+accountsModel.removeAccount = (account) => {
+    this.repositoryFactory.deleteAccount(account);
+};
+
+
 module.exports = accountsModel;
