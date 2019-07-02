@@ -1,0 +1,72 @@
+<h1 class="heading">Checkout</h1>
+
+<app-checkout-item
+  *ngFor="let checkoutItem of checkoutItems"
+  [name]="checkoutItem.name"
+  [description]="checkoutItem.description"
+  [quantity]="1"
+  [price]="checkoutItem.price"
+></app-checkout-item>
+
+<div class="total-price">
+  <p><b>Total Price :</b> R{{ totalPrice }}</p>
+</div>
+
+<div class="container">
+  <h4>Choose an address for delivery:</h4>
+  <form [formGroup]="addressForm" *ngIf="addresses">
+    <mat-radio-group formControlName="addressControl">
+      <mat-radio-button
+        class="radio"
+        *ngFor="let address of addresses"
+        [value]="address.name"
+        (click)="selectAddress(address.name)"
+        ><mat-card>
+          <mat-card-content>
+            <h5>{{ address.name }}</h5>
+            <p>{{ address.line1 }}</p>
+            <p>{{ address.line2 }}</p>
+            <p>{{ address.line3 }}</p>
+          </mat-card-content>
+        </mat-card></mat-radio-button
+      >
+    </mat-radio-group>
+  </form>
+</div>
+
+<div class="container">
+  <h4>Choose a card for payment:</h4>
+  <form [formGroup]="cardForm" *ngIf="cards">
+    <mat-radio-group formControlName="cardControl">
+      <mat-radio-button
+        class="radio"
+        *ngFor="let card of cards"
+        [value]="card.name"
+        (click)="selectCard(card.name)"
+      >
+        <mat-card>
+          <mat-card-content>
+            <h5>{{ card.name }}</h5>
+            <p>Name on card: {{ card.owner }}</p>
+            <p>Card number: {{ card.number }}</p>
+            <p>Expires: {{ card.expires }}</p>
+          </mat-card-content>
+        </mat-card>
+      </mat-radio-button>
+    </mat-radio-group>
+  </form>
+</div>
+
+<div class="button-container">
+  <button
+    mat-raised-button
+    color="warn"
+    (click)="cancel()"
+    routerLink="/basket"
+  >
+    Cancel
+  </button>
+  <button mat-raised-button color="primary" (click)="pay()">
+    Pay Now
+  </button>
+</div>
