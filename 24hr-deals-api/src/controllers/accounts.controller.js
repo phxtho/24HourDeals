@@ -1,31 +1,38 @@
 const express = require('express');
-const accountsModel = require('../models/accounts.model');
-
+const repoFactory = require('../factories/repository.factory');
+const accountRepo = repoFactory.accounts;
 const accounts = express();
+
+// create an account
+accounts.post('/', (req, res) => {
+    accountRepo.accounts.create((err,ret)=>{
+        if(err) res.status(404).send(err);
+        res.status(200).send(ret);
+    });
+});
 
 // get all accounts
 accounts.get('/', (req, res) => {
-    res.status(200).send({
-        accounts: accountsModel.accounts
-    })
+    let promise = accountRepo.getAllAccounts();
+    promise.exec((err,acc) => {
+        if(err) {
+            res.status(404).send(err)
+        } else {
+            res.status(200).send(acc);
+        }
+    });
 });
 
 // get account by id
 accounts.get('/:id', (req, res) => {
-    const id = parseInt(req.params.id, 10);
-
-    let account = accountsModel.getAccount(id)
-
-    if (!!account) {
-        res.status(200).send({
-            account: account
-        })
-    } else {
-        res.status(404).send({
-            message: 'Account not found.'
-        })
-    }
+    const id = req.params.id;
+    accountRepo.getAccountById(id).exec((err,ret)=>{
+        if(err) { res.status(404).send(err) }
+        else { res.status(200).send(ret);}
+    });
 });
+
+/**************************************TO DO***********************/
 
 // get account transaction history
 // TODO: implement
@@ -42,20 +49,6 @@ accounts.get('/:id/basket', (req, res) => {
     res.status(200).send({
         basket: accountsModel.getBasket(id)
     })
-});
-
-// create an account
-accounts.post('/', (req, res) => {
-    accountsModel.addAccount({email: "goose@goose.com", name : "chad"});
-    // if (true) {
-    //     res.status(200).send({
-    //         account: accountsModel.getAccount(req.body.id)
-    //     })
-    // } else {
-    //     res.status(400).send({
-    //         message: 'Failed to create account'
-    //     })
-    // }
 });
 
 // checkout on an account

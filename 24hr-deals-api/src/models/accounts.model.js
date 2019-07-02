@@ -8,12 +8,16 @@ class AccountsModel {
     }
 
     addAccount(account) {
-        this.repo.create(account);
+        return this.repo.insertAccount(account);
     };
 
     removeAccount(account) {
-        this.repo.deleteAccount(account);
+        return this.repo.deleteAccountByUserName(account);
     };
+
+    allAccounts() {
+        return this.repo.getAllAccounts();
+    }
 }
 
 const accountsModel = new AccountsModel(repoFactory);

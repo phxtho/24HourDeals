@@ -4,13 +4,15 @@ const Schema = mongoose.Schema;
 // Define schema
 let accountSchema = new Schema({
     email: {
-        type: String
-    },
-    name: {
         type: String,
+        unique: true,
+    },
+    username: {
+        type: String,
+        unique: true,
         required: true
     },
-    adresses : {
+    addresses : {
         type : Array
     },
     billingDetails: {
@@ -19,21 +21,46 @@ let accountSchema = new Schema({
 });
 
 // Compile model
-let Account = mongoose.model('Account', accountSchema);
+let AccountModel = mongoose.model('Account', accountSchema);
 
-class AccountRepo {
-    constructor(){
-        this.model = Account;
-    }
 
-    insertAccount(account) {
-        let accountDoc = new Account(account);
-        accountDoc.save((err, accountDoc) => {
-            if (err) return console.error(err);
-            return (accountDoc);
-        });
-    };
+const accountRepo = {}
+
+accountRepo.accounts = AccountModel;
+
+accountRepo.insertAccount = (account) => {
+    let accountDoc = new AccountModel(account);
+    accountDoc.save((err, accountDoc) => {
+        if (err) {
+            console.error(err)
+            return (err);
+        }
+        return (accountDoc);
+    });
+};
+
+accountRepo.getAllAccounts = () => {
+    return AccountModel.find();
+};
+
+accountRepo.getAccountById = (accountId) => {
+    return AccountModel.findById(accountId);
+};
+
+accountRepo.getAccountByEmail = (emailAdress) => {
+    return AccountModel.find({email: emailAdress});
 }
 
-const accountRepo = new AccountRepo();
+accountRepo.getAccountByUserName = (userName) => {
+    return AccountModel.find({username: userName});
+}
+
+accountRepo.deleteAccountByUserName = (userName) => {
+    return AccountModel.deleteOne({name : userName});
+};
+
+accountRepo.deleteAccountByEmail = (emailAddress) => {
+    return Account.deleteOne({email : emailAddress});
+};
+
 module.exports = accountRepo;

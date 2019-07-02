@@ -1,5 +1,6 @@
 const mongoose = require('mongoose');
 
+// server = '127.0.0.1:27017';
 const server = 'mongo:27017';
 const database = '24hr-deals';  
 
@@ -18,10 +19,9 @@ mongoose
 let repoList = [{name: 'accounts', source:'../repositories/account.repository'},
                 {name: 'products', source:'../repositories/product.repository'}]; 
 
-// Adds repos as properties of factory                
-repoList.forEach((repo)=>{
+for (const repo of repoList) {
     repoFactory[repo.name] = require(repo.source);
-});
+};
 
 
 module.exports = repoFactory;
