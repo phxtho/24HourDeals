@@ -36,9 +36,26 @@ let productSchema = new Schema ({
 
 let productModel = mongoose.model('Product', productSchema);
 
-const productRepo = () => {
+class ProductRepo {
+    constructor(){
+        this.model = productModel;
+    }
 
-    this.insertProduct = (product) => {
+    getAllProducts() {
+        productModel.find()
+        .then(function(productDoc) {
+            return productDoc;
+        });
+    };
+
+    getProductsById(id) {
+        productModel.findById(id)
+        .then(function(productDoc) {
+            return productDoc;
+        });
+    };
+
+    insertProduct(product) {
         let productDoc = new productModel(product);
         productDoc.save((err, productDoc)=>{
             if(err) return console.error(err);
@@ -46,13 +63,23 @@ const productRepo = () => {
         });
     };
 
-    this.getAllProducts = () => {
-        mongoose.model('products').find((err, products) => {
-            res.send(products);
-        });
-    };
+    updateProduct(update) {
+        //Use traditional findById for full-fledged validations
+        productModel.findById(update.id, function(err, productDoc){
+            if (err) return console.error(err);
+            else {
+                productDoc.save(update);
+            }
+        })
+    }
 
+    deleteProduct(product){
+        var id = product.id;
+        productModel.findByIdAndRemove(id).exec();
+    }
 }
+
+const productRepo = new ProductRepo();
 module.exports = productRepo;
 
 
