@@ -4,7 +4,7 @@
 */
 
 const express = require('express');
-const productsModel = require('../models/products.model');
+const productsFactory = require('../factories/repository.factory');
 
 const controller = express();
 
