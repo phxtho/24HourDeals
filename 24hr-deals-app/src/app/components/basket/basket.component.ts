@@ -1,5 +1,5 @@
 import { Component, OnInit, OnDestroy, AfterViewInit } from "@angular/core";
-import { ApiService } from "src/app/services/product.service";
+import { ProductService } from "src/app/services/product.service";
 import { ProductModel } from "src/app/models/product/product-model";
 import { Subscription } from "rxjs";
 
@@ -14,7 +14,7 @@ export class BasketComponent implements OnInit, OnDestroy {
   private totalPrice: number;
 
   //make sure to replace ApiService with TransactionService
-  constructor(private apiService: ApiService) {}
+  constructor(private apiService: ProductService) {}
 
   ngOnInit() {
     //using the product service for now

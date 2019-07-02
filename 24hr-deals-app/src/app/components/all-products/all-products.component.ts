@@ -1,7 +1,7 @@
 import { Component, OnInit, AfterViewChecked, OnDestroy } from "@angular/core";
 import { HttpClient } from "@angular/common/http";
 import { map } from "rxjs/operators";
-import { ApiService } from "../../services/product.service";
+import { ProductService } from "../../services/product.service";
 import { interval, Observable, Subscription } from "rxjs";
 import { ProductModel } from "../../models/product/product-model";
 
@@ -19,7 +19,7 @@ export class AllProductsComponent implements OnInit, OnDestroy {
   private subscription = new Subscription();
   private message: string;
 
-  constructor(private http: HttpClient, private apiService: ApiService) {
+  constructor(private http: HttpClient, private apiService: ProductService) {
     setInterval(() => {
       this.date = new Date();
     }, 1000);

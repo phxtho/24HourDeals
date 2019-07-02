@@ -23,6 +23,11 @@ import { LandingPageComponent } from "./components/home-page/home-page.component
 import { BasketItemComponent } from "./components/basket-item/basket-item.component";
 import { MatCheckboxModule } from "@angular/material/checkbox";
 import { MatInputModule } from "@angular/material/input";
+import { CheckoutPageComponent } from "./components/checkout-page/checkout-page.component";
+import { CheckoutItemComponent } from "./components/checkout-item/checkout-item.component";
+import { MatRadioModule } from "@angular/material/radio";
+import { FormsModule, ReactiveFormsModule } from "@angular/forms";
+import { MatSnackBarModule } from "@angular/material/snack-bar";
 
 @NgModule({
   declarations: [
@@ -31,7 +36,9 @@ import { MatInputModule } from "@angular/material/input";
     BasketComponent,
     CountDown,
     LandingPageComponent,
-    BasketItemComponent
+    BasketItemComponent,
+    CheckoutPageComponent,
+    CheckoutItemComponent
   ],
   imports: [
     BrowserModule,
@@ -45,7 +52,11 @@ import { MatInputModule } from "@angular/material/input";
     FlexLayoutModule,
     BrowserAnimationsModule,
     MatCheckboxModule,
-    MatInputModule
+    MatInputModule,
+    MatRadioModule,
+    FormsModule,
+    ReactiveFormsModule,
+    MatSnackBarModule
   ],
   providers: [],
   bootstrap: [AppComponent]
