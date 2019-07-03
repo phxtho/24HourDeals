@@ -44,38 +44,23 @@ class ProductRepo {
     //********     GETS    ********
 
     getAllProducts() {
-        productModel.find()
-        .then(function(productDoc) {
-            return productDoc;
-        });
-    };
+        return productModel.find();
+    }
 
     getProductsById(productId) {
-        productModel.findById(productId)
-        .then(function(productDoc) {
-            return productDoc;
-        });
-    };
+        return productModel.findById(productId);
+    }
 
     getProductsByName(productName) {
-        productModel.find({name: productName})
-        .then(function(productDoc){
-            return productDoc;
-        })
+        return productModel.find({name: productName});
     }
 
     getProductsByPrice(productPrice) {
-        productModel.find({price: productPrice})
-        .then(function(productDoc){
-            return productDoc;
-        })
+        return productModel.find({price: productPrice});
     }
 
     getProductsByDescription(productDescription){
-        productModel.find({desription: productDescription})
-        .then(function(productDoc){
-            return productDoc;
-        });
+        return productModel.find({desription: productDescription});
     }
 
     //  ********    INSERTS     ********
@@ -87,7 +72,7 @@ class ProductRepo {
             console.log('Saved: ' + productDoc);
             return productDoc;
         });
-    };
+    }
 
     //  ********    UPDATES     ********
 
@@ -98,7 +83,7 @@ class ProductRepo {
             else {
                 productDoc.save(update);
             }
-        })
+        });
     }
 
     // ********     DELETE      ********
