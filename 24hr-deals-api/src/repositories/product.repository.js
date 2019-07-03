@@ -71,6 +71,13 @@ class ProductRepo {
         })
     }
 
+    getProductsByDescription(productDescription){
+        productModel.find({desription: productDescription})
+        .then(function(productDoc){
+            return productDoc;
+        });
+    }
+
     //  ********    INSERTS     ********
 
     insertProduct(product) {
