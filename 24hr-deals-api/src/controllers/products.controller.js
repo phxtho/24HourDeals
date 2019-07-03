@@ -4,15 +4,22 @@
 */
 
 const express = require('express');
-const productsFactory = require('../factories/repository.factory');
+const repoFactory = require('../factories/repository.factory');
 
+const productsRepo = repoFactory.products;
 const controller = express();
 
 // get all products
 controller.get('/', (req, res) => {
-    res.status(200).send({
-        products: productsModel.products
-    })
+    console.log('ftw');
+    let promise = productsRepo.getAllProducts();
+    promise.exec((err,data)=>{
+        if(err) {
+            res.status(404).send(err)
+        } else {
+            res.status(200).send(data);
+        }
+    });
 });
 
 // get product with id
@@ -34,15 +41,8 @@ controller.get('/:id', (req, res) => {
 
 // create product
 controller.post('/', (req, res) => {
-    if (productsModel.addProduct(req.body)) {
-        res.status(200).send({
-            product: productsModel.getProduct(req.body.id)
-        })
-    } else {
-        res.status(400).send({
-            message: 'Failed to create product'
-        })
-    }
+    productsRepo.insertProduct({name: 'biscuit',description: 'cookie but better'});
+    res.send({message: 'uhhhh'});
 });
 
 // update all products

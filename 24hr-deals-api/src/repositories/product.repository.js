@@ -3,20 +3,16 @@ const Schema = mongoose.Schema;
 
 // Define schema
 let productSchema = new Schema ({
-    id : {
-        type: Number,
-        required: true
-    },
     name : {
         type: String,
-        required: true
+        //required: true
     },
     desription : {
         type: String
     },
     price : {
         type : Number,
-        required : true
+        //required : true
     },
     stock : {
         type : Number
@@ -42,22 +38,16 @@ class ProductRepo {
     }
 
     getAllProducts() {
-        productModel.find()
-        .then(function(productDoc) {
-            return productDoc;
-        });
+        return productModel.find();
     };
 
     getProductsById(id) {
-        productModel.findById(id)
-        .then(function(productDoc) {
-            return productDoc;
-        });
+        return productModel.findById(id);
     };
 
     insertProduct(product) {
         let productDoc = new productModel(product);
-        productDoc.save((err, productDoc)=>{
+        return productDoc.save((err, productDoc)=>{
             if(err) return console.error(err);
             console.log('Saved: ' + productDoc);
         });
