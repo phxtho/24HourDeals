@@ -4,15 +4,20 @@
 */
 
 const express = require('express');
-const productsFactory = require('../factories/repository.factory');
-
+const factory = require('../factories/repository.factory');
+const productsRepository = factory.products;
 const controller = express();
 
 // get all products
 controller.get('/', (req, res) => {
-    res.status(200).send({
-        products: productsModel.products
-    })
+    let promise = productsRepository.getAllProducts();
+    promise.exec((err,product) => {
+        if(err) {
+            res.status(404).send(err)
+        } else {
+            res.status(200).send(product);
+        }
+    });
 });
 
 // get product with id

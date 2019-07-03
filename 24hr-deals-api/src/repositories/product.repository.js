@@ -41,6 +41,8 @@ class ProductRepo {
         this.model = productModel;
     }
 
+    //********     GETS    ********
+
     getAllProducts() {
         productModel.find()
         .then(function(productDoc) {
@@ -48,20 +50,39 @@ class ProductRepo {
         });
     };
 
-    getProductsById(id) {
-        productModel.findById(id)
+    getProductsById(productId) {
+        productModel.findById(productId)
         .then(function(productDoc) {
             return productDoc;
         });
     };
+
+    getProductsByName(productName) {
+        productModel.find({name: productName})
+        .then(function(productDoc){
+            return productDoc;
+        })
+    }
+
+    getProductsByPrice(productPrice) {
+        productModel.find({price: productPrice})
+        .then(function(productDoc){
+            return productDoc;
+        })
+    }
+
+    //  ********    INSERTS     ********
 
     insertProduct(product) {
         let productDoc = new productModel(product);
         productDoc.save((err, productDoc)=>{
             if(err) return console.error(err);
             console.log('Saved: ' + productDoc);
+            return productDoc;
         });
     };
+
+    //  ********    UPDATES     ********
 
     updateProduct(update) {
         //Use traditional findById for full-fledged validations
@@ -72,6 +93,8 @@ class ProductRepo {
             }
         })
     }
+
+    // ********     DELETE      ********
 
     deleteProduct(product){
         var id = product.id;
