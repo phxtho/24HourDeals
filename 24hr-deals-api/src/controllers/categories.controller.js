@@ -19,7 +19,7 @@ controller.get('/', (req, res) => {
 controller.get('/:id', (req, res) => {
     const id = parseInt(req.params.id, 10);
 
-    category = categoryModel.getCategoryById(id);
+    category = categoryRepository.getCategoryById(id);
 
     if (!!category) {
         res.status(200).send({
@@ -34,7 +34,7 @@ controller.get('/:id', (req, res) => {
 
 // get category by name
 controller.get('/:name', (req, res) => {
-    category = categoryModel.getCategoryByName(name);
+    category = categoryRepository.getCategoryByName(name);
 
     if (!!category) {
         res.status(200).send({
@@ -49,9 +49,9 @@ controller.get('/:name', (req, res) => {
 
 // create category
 controller.post('/', (req, res) => {
-    if (categoryModel.insertCategory(req.body)) {
+    if (categoryRepository.insertCategory(req.body)) {
         res.status(200).send({
-            category: categoryModel.getCategory(req.body.id)
+            category: categoryRepository.getCategory(req.body.id)
         })
     } else {
         res.status(400).send({
@@ -64,10 +64,10 @@ controller.post('/', (req, res) => {
 controller.put('/:id', (req, res) => {
     const id = parseInt(req.params.id, 10);
 
-    if (categoryModel.updateCategory(req.body)) {
+    if (categoryRepository.updateCategory(req.body)) {
         res.status(200).send({
             message: `Updated category with id ${id}`,
-            category: categoryModel.getCategoryById(id)
+            category: categoryRepository.getCategoryById(id)
         })
     } else {
         res.status(400).send({
@@ -80,7 +80,7 @@ controller.put('/:id', (req, res) => {
 controller.delete('/:id', (req, res) => {
     const id = parseInt(req.params.id, 10);
 
-    if (categoryModel.deleteCategory(id)) {
+    if (categoryRepository.deleteCategory(id)) {
         res.status(200).send({
             message: `Deleted category with id: ${id}`
         })
