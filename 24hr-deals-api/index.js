@@ -1,7 +1,7 @@
 const express = require('express');
 const bodyParser = require('body-parser');
 const cors = require('cors');
-const run = require('./src/commands/commandController');
+const run = require('./src/commands/commandHandler');
 
 const dealsAPI = express();
 
