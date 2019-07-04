@@ -23,7 +23,13 @@ export class LoginPageComponent implements OnInit {
   }
   onLogin(form: NgForm) {
     this.getAllAccounts();
-
+    let email = (<HTMLInputElement>document.getElementById("loginUsername")).value;
+    for(let account of this.accounts){
+      if(account.email === email){
+        this.accountService.setCurrentAccountId(account);
+        window.location.href="http://localhost:4200/home/";
+      }
+    }
   }
   getAllAccounts() {
     this.subscription.add(

@@ -7,6 +7,6 @@ export class AccountModel {
   name: string;
   basket: TransactionModel;
   transactions: TransactionModel;
-  addresses: string;
-  billingDetails: string;
+  addresses: string[];
+  billingDetails: string[];
 }

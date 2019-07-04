@@ -61,12 +61,14 @@
                   </div>
               </div>
               <div class="form-row">
-                  <button class="btn dusty-grass-gradient" style=" margin: 20px ; margin-right: 40%">Sign Up</button>
-                  <button class="btn" style="background-color:red ; margin: 20px">Cancel</button>
+                  <form (submit)='onSignUp(SignUpForm)' #SignUpForm>
+                    <button class="btn dusty-grass-gradient" style=" margin: 20px ; margin-right: 40%">Sign Up</button>
+                  </form>
+                  <button class="btn" style="background-color:red ; margin: 20px" routerLink="/login">Cancel</button>
               </div>
               </div>
           
               </form>
     </div>
   </body>
-
+  
