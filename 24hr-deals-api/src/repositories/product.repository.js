@@ -7,7 +7,7 @@ let productSchema = new Schema ({
         type: String,
         //required: true
     },
-    desription : {
+    description : {
         type: String
     },
     price : {
@@ -18,7 +18,7 @@ let productSchema = new Schema ({
         type : Number
     },
     dealEndTime : {
-        type : Number
+        type : String
     },
     categories : {
         type : []

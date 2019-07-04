@@ -1,2 +1,20 @@
 <h1 class="heading">24 Hour Deals</h1>
-<app-all-products></app-all-products>
+<br />
+<div
+  fxLayout="row"
+  fxLayout.xs="column"
+  fxLayoutWrap
+  fxLayoutGap="1.0%"
+  fxLayoutAlign="center"
+>
+  <app-product
+    *ngFor="let product of products"
+    [id]="product._id"
+    [name]="product.name"
+    [category]="product.categrory"
+    [description]="product.description"
+    [quantity]="product.quantity"
+    [dealEndTime]="product.dealEndTime"
+    [price]="product.price"
+  ></app-product>
+</div>

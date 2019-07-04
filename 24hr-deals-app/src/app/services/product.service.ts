@@ -19,7 +19,7 @@ export class ProductService {
 
   getProduct(id: number) {
     return this.httpClient
-      .get<ProductModel[]>(this.apiUrl + "/products/" + id)
+      .get<ProductModel>(this.apiUrl + "/products/" + id)
       .pipe(map(res => res));
   }
 
