@@ -9,8 +9,7 @@ let accountSchema = new Schema({
     },
     username: {
         type: String,
-        unique: true,
-        required: true
+        unique: true
     },
     addresses: {
         type: Array

@@ -43,7 +43,7 @@ let getTransactionHistory = (model) => {
 }
 
 let checkOutTransaction = (model) => {
-    return accountRepo.insertTransactions(id, transaction)
+    return accountRepo.insertTransactions(model.id, model.data);
 }
 
 let getBasket = (model) => {
@@ -105,10 +105,6 @@ accountCommands.getTransactionHistory = (model) => {
     return new Command(getTransactionHistory, getTransactionHistory, model);
 };
 
-accountCommands.checkOutTransaction = (id, data) => {
-    return new Command(checkOutTransaction, checkOutTransaction)
-}
-
 accountCommands.getBasket = (model) => {
     return new Command(getBasket, getBasket, model);
 }
@@ -116,6 +112,11 @@ accountCommands.getBasket = (model) => {
 accountCommands.updateBasket = (model) => {
     return new Command(updateBasket, updateBasket, model);
 }
+
+accountCommands.checkOutTransaction = (model) => {
+    return new Command(checkOutTransaction, checkOutTransaction, model)
+}
+
 
 
 module.exports = accountCommands;

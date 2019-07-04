@@ -13,9 +13,9 @@ let get = (model) => {
     return productRepo.getAllProducts();
 }
 
-let getById = (model) => {
+let getById = (id) => {
     console.log("selected info by id in ");
-    return productRepo.getProductsById(model.params.id);
+    return productRepo.getProductsById(id);
 }
 let update = (model) => {
     console.log("updated info in " );
