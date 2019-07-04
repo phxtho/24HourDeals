@@ -35,19 +35,22 @@ class ProductRepo {
     }
 
     getAllProducts() {
-        return productModel.find();
+        return productModel.find().exec();
     };
 
     getProductsById(id) {
-        return productModel.findById(id);
+        return productModel.findById(id).exec();
     };
 
     insertProduct(product) {
-        let productDoc = new productModel(product);
-        return productDoc.save((err, productDoc)=>{
-            if(err) return console.error(err);
-            console.log('Saved: ' + productDoc);
-        });
+        // let productDoc = new productModel(product);
+        
+        return productModel.create(product);
+
+        // return productDoc.save((err, productDoc)=>{
+        //     if(err) return console.error(err);
+        //     console.log('Saved: ' + productDoc);
+        // });
     };
 
     updateProduct(update) {
