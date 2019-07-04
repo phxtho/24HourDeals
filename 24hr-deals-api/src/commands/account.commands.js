@@ -38,8 +38,17 @@ let checkOutTransaction = (model) => {
     return accountRepo.insertTransactions(model.id, model.data);
 }
 
+let getBasket = (model) => {
+    return accountRepo.getBasket(model);
+}
+
+let updateBasket = (model) => {
+    // console.log(model.basket);
+    return accountRepo.updateBasket(model.id, model.basket);
+}
+
 class Command {
-    constructor(execute, undo, model){
+    constructor(execute, undo, model) {
         this.execute = execute;
         this.undo = undo;
         this.model = model;
@@ -48,8 +57,8 @@ class Command {
 
 let accountCommands = {};
 
-accountCommands.createAccount =  (model) => {
-        return new Command(post, remove, model);
+accountCommands.createAccount = (model) => {
+    return new Command(post, remove, model);
 };
 
 accountCommands.deleteAccountByEmail = (model) => {
@@ -87,6 +96,14 @@ accountCommands.updateUndoCommand = (model) => {
 accountCommands.getTransactionHistory = (model) => {
     return new Command(getTransactionHistory, getTransactionHistory, model);
 };
+
+accountCommands.getBasket = (model) => {
+    return new Command(getBasket, getBasket, model);
+}
+
+accountCommands.updateBasket = (model) => {
+    return new Command(updateBasket, updateBasket, model);
+}
 
 accountCommands.checkOutTransaction = (model) => {
     console.log('new checkOut Command');

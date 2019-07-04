@@ -7,8 +7,8 @@ let accountCommands = commandFactory['accounts'];
 
 // create an account
 accounts.post('/', (req, res) => {
-    commandInvoker.execute(accountCommands.createAccount(req.body)).then((response,error)=>{
-        if(error){res.status(400).send(error)}
+    commandInvoker.execute(accountCommands.createAccount(req.body)).then((response, error) => {
+        if (error) { res.status(400).send(error) }
         res.status(200).send(response);
     });
 });
@@ -20,18 +20,16 @@ accounts.get('/', (req, res) => {
         // get accounts
         let accounts = {};
         await commandInvoker.execute(accountCommands.getAllAccounts(req))
-                            .then((resolve,error)=>{
-                                accounts = resolve;
-                            });
+            .then((resolve, error) => {
+                accounts = resolve;
+            });
         return accounts
     }
 
     // Execute the Unit of Work
-    commandsToExecute().then((accounts,error)=>{
-        if(!accounts) 
-            {res.status(404).send(error);}
-        else
-            {res.status(200).send(accounts);}
+    commandsToExecute().then((accounts, error) => {
+        if (!accounts) { res.status(404).send(error); }
+        else { res.status(200).send(accounts); }
     });
 
 });
@@ -39,8 +37,8 @@ accounts.get('/', (req, res) => {
 // get account by id
 accounts.get('/:id', (req, res) => {
     const id = req.params.id;
-    commandInvoker.execute(accountCommands.getAccountById(id)).then((account,error) => {
-        if(error){res.status(400).send(error)}
+    commandInvoker.execute(accountCommands.getAccountById(id)).then((account, error) => {
+        if (error) { res.status(400).send(error) }
         res.status(200).send(account);
     })
 });
@@ -48,8 +46,8 @@ accounts.get('/:id', (req, res) => {
 // get account transaction history
 accounts.get('/:id/transactions', (req, res) => {
     const id = req.params.id;
-    commandInvoker.execute(accountCommands.getTransactionHistory(id)).then((response,error) => {
-        if(error){res.status(400).send(error)}
+    commandInvoker.execute(accountCommands.getTransactionHistory(id)).then((response, error) => {
+        if (error) { res.status(400).send(error) }
         res.status(200).send(response);
     })
 });
@@ -80,16 +78,14 @@ accounts.post('/:id/transactions', (req, res) => {
         //await commandInvoker.execute(accountCommands.)
 
         return completedTransaction
-}
+    }
 
-    commandsToExecute().then((transaction,error)=>{
-        if(error) 
-            {res.status(404).send(error);}
-        else
-            {res.status(200).send(transaction);}
+    commandsToExecute().then((transaction, error) => {
+        if (error) { res.status(404).send(error); }
+        else { res.status(200).send(transaction); }
     });
-    
-    
+
+
 });
 
 // update all accounts
@@ -123,6 +119,23 @@ accounts.delete('/:id', (req, res) => {
             message: 'Resource does not exist'
         })
     }
+});
+
+accounts.get('/:id/basket', (req, res) => {
+    const id = req.params.id;
+    commandInvoker.execute(accountCommands.getBasket(id)).then((response, error) => {
+        if (error) { res.status(400).send(error) }
+        res.status(200).send(response);
+    });
+});
+
+accounts.put('/:id/basket', (req, res) => {
+    const id = req.params.id;
+    console.log(req.body);
+    commandInvoker.execute(accountCommands.updateBasket({ id: id, basket: req.body })).then((response, error) => {
+        if (error) { res.status(400).send(error) }
+        res.status(200).send(response);
+    });
 });
 
 module.exports = accounts;
