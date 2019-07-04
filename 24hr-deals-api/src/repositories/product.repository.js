@@ -17,11 +17,8 @@ let productSchema = new Schema ({
     stock : {
         type : Number
     },
-    dealStartTime : {
+    dealEndTime : {
         type : Number
-    },
-    dealDuration : {
-        type: Number
     },
     categories : {
         type : []

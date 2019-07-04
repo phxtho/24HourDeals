@@ -11,13 +11,9 @@ import { ProductModel } from "../../models/product/product-model";
   styleUrls: ["./all-products.component.scss"]
 })
 export class AllProductsComponent implements OnInit, OnDestroy {
-  private url = "http://localhost:5000";
   private products: ProductModel[];
   date: Date;
-  private future: Date;
-  private counter$: Observable<number>;
   private subscription = new Subscription();
-  private message: string;
 
   constructor(private http: HttpClient, private apiService: ProductService) {
     setInterval(() => {

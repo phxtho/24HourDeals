@@ -13,31 +13,31 @@ export class ProductService {
 
   getAllProducts() {
     return this.httpClient
-      .get(this.apiUrl + "/products")
+      .get<ProductModel[]>(this.apiUrl + "/products")
       .pipe(map(res => res));
   }
 
   getProduct(id: number) {
     return this.httpClient
-      .get(this.apiUrl + "/products/" + id)
+      .get<ProductModel[]>(this.apiUrl + "/products/" + id)
       .pipe(map(res => res));
   }
 
   createProduct(product: ProductModel) {
     return this.httpClient
-      .post(this.apiUrl + "/products/", product)
+      .post<ProductModel[]>(this.apiUrl + "/products/", product)
       .pipe(map(res => res));
   }
   //not completed, waiting on api
   updateAllProducts(test: string) {
     return this.httpClient
-      .put(this.apiUrl + "/products/", test)
+      .put<ProductModel[]>(this.apiUrl + "/products/", test)
       .pipe(map(res => res));
   }
   //api failing
   updateProduct(id: number, product: ProductModel) {
     return this.httpClient
-      .put(this.apiUrl + "/products/" + id, product)
+      .put<ProductModel[]>(this.apiUrl + "/products/" + id, product)
       .pipe(map(res => res));
   }
 
