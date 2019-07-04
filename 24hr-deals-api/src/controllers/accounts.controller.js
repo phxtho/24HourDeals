@@ -10,15 +10,9 @@ let accountCommands = commandFactory['accounts'];
 
 // create an account
 accounts.post('/', (req, res) => {
-<<<<<<< HEAD
     commandInvoker.execute(new accountCommands.createCommand(req.body)).then((response,error)=>{
         if(error){res.status(400).send(error)}
         res.status(200).send(response);
-=======
-    accountRepo.accounts.create(req.body,(err,ret)=>{
-        if(err) res.status(404).send(err);
-        res.status(200).send(ret);
->>>>>>> master
     });
 });
 
@@ -64,55 +58,8 @@ accounts.get('/:id', (req, res) => {
 
 // get account transaction history
 accounts.get('/:id/transaction-history', (req, res) => {
-<<<<<<< HEAD
     const id = parseInt(req.params.id, 10);
     commandInvoker.execute(new accountCommands)
-=======
-    const id = req.params.id;
-    let transactionHistory = {};
-    accountRepo.getTransactions(id).then((resolve, err)=>{
-        if (!resolve) {
-            res.status(404).send("not found");
-        } else if (err) {
-            res.status(400).send(err)
-        } else {
-            transactionHistory = resolve;
-            res.status(200).send(transactionHistory);
-        }
-    });
-});
-
-// get account basket
-accounts.get('/:id/basket', (req, res) => {
-    const id = req.params.id;
-    let basket = {};
-    accountRepo.getBasket(id).then((resolve, err)=>{
-        if (!resolve) {
-            res.status(404).send("not found");
-        } else if (err) {
-            res.status(400).send(err)
-        } else {
-            basket = resolve;
-            res.status(200).send(basket);
-        }
-    });
-});
-
-// update account basket
-accounts.put('/:id/basket', (req, res) => {
-    const id = req.params.id;
-    let basket = {};
-    accountRepo.updateBasket(id, req.body).then((resolve, err) => {
-        if (!resolve) {
-            res.status(404).send("not found");
-        } else if (err) {
-            res.status(400).send(err)
-        } else {
-            basket = resolve;
-            res.status(200).send(basket);
-        }
-    });
->>>>>>> master
 });
 
 // checkout on an account
