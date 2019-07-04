@@ -28,29 +28,16 @@ const accountRepo = {}
 
 accountRepo.accounts = AccountModel;
 
-// accountRepo.insertAccount = (account) => {
-//     let accountDoc = new AccountModel(account);
-//     accountDoc.save((err, accountDoc) => {
-//         if (err) {
-//             console.error(err)
-//             return (err);
-//         }
-//         return (accountDoc);
-//     });
-// };
+accountRepo.insertAccount = (account) => {
+    return AccountModel.create(account);
+} 
 
-accountRepo.getAllAccounts = ( res) => {
-    return AccountModel.find((err,ret)=>{
-        if(err) res.status(404).send(err);
-        res.status(200).send(ret);
-    });
+accountRepo.getAllAccounts = () => {
+    return AccountModel.find().exec();
 };
 
-accountRepo.getAccountById = (accountId, res) => {
-    return AccountModel.findById(accountId,(err,ret)=>{
-        if(err) res.status(404).send(err);
-        res.status(200).send(ret);
-    });
+accountRepo.getAccountById = (accountId) => {
+    return AccountModel.findById(accountId);
 };
 
 accountRepo.getAccountByEmail = (emailAdress) => {
@@ -65,11 +52,17 @@ accountRepo.deleteAccountByUserName = (userName) => {
     return AccountModel.deleteOne({name : userName});
 };
 
-accountRepo.deleteAccountByEmail = (emailAddress, res) => {
-    return AccountModel.deleteOne({email : emailAddress}, (err,ret)=>{
-        if(err) res.status(404).send(err);
-        res.status(200).send(ret);
-    });
+accountRepo.deleteAccountByEmail = (emailAddress) => {
+    return AccountModel.deleteOne({email : emailAddress});
 };
+
+accountRepo.updateAccount = (account) => {
+    AccountModel.findById(account.id, function(err, accountDoc) {
+        if (err) return console.error(err);
+        else {
+            accountDoc.save(account);
+        }
+    })
+}
 
 module.exports = accountRepo;

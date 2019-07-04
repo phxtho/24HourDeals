@@ -51,8 +51,8 @@ class ProductRepo {
     };
 
     updateProduct(update) {
-        //Use traditional findById for full-fledged validations
-        productModel.findById(update.id, function(err, productDoc){
+        // Use traditional findById for full-fledged validations
+        productModel.findById(update.id, function(err, productDoc) {
             if (err) return console.error(err);
             else {
                 productDoc.save(update);

@@ -1,54 +1,68 @@
 const express = require('express');
-const repoFactory = require('../factories/repository.factory');
-const accountRepo = repoFactory.accounts;
-const commandExecutor = require('../commands/commandHandler');
-var Command = require('../commands/command')
 const accounts = express();
 
-const exec = commandExecutor();
+const commandInvoker = require('../commands/command.invoker')();
+const commandFactory = require('../factories/command.factory');
+let accountCommands = commandFactory['accounts'];
+
+// var Command = require('../commands/command')
 
 
 // create an account
 accounts.post('/', (req, res) => {
-    exec.execute(new Command.postCommand('accounts', req.body, res));
-});
-
-accounts.post('/undo', (req, res) => {
-    exec.undo(res);
+    commandInvoker.execute(new accountCommands.createCommand(req.body)).then((response,error)=>{
+        if(error){res.status(400).send(error)}
+        res.status(200).send(response);
+    });
 });
 
 // get all accounts
 accounts.get('/', (req, res) => {
-    exec.execute(new Command.getCommand('accounts', req.body, res));
+    // Unit of Work
+    commandsToExecute = async () => {
+        // get accounts
+        let accounts = {};
+        await commandInvoker.execute(new accountCommands.getAllAccounts(req)
+                            .then((resolve,error)=>{
+                                accounts = resolve;
+                            })
+        );
+        return accounts
+    }
+
+    // Execute the Unit of Work
+    commandsToExecute().then((accounts,error)=>{
+        if(!accounts) 
+            {res.status(404).send(error);}
+        else
+            {res.status(200).send(accounts);}
+    });
+
 });
 
 // get account by id
 accounts.get('/:id', (req, res) => {
     const id = req.params.id;
-    exec.execute(new Command.getByIdCommand('accounts', req, res));
+    commandInvoker.execute(new accountCommands.getByIdCommand(req.body)).then((response,error)=>{
+        if(error){res.status(400).send(error)}
+        res.status(200).send(response);
+    });
 });
 
-/**************************************TO DO***********************/
+
+/*
+*******************************************************************
+                                TODO
+*******************************************************************
+*/
 
 // get account transaction history
-// TODO: implement
 accounts.get('/:id/transaction-history', (req, res) => {
     const id = parseInt(req.params.id, 10);
-    res.status(200).send({
-        message: 'Transaction History'
-    })
-});
-
-// get account basket
-accounts.get('/:id/basket', (req, res) => {
-    const id = parseInt(req.params.id, 10);
-    res.status(200).send({
-        basket: accountsModel.getBasket(id)
-    })
+    commandInvoker.execute(new accountCommands)
 });
 
 // checkout on an account
-// TODO: implement
 accounts.post('/:id/transactions/', (req, res) => {
     const id = parseInt(req.params.id, 10);
     res.status(200).send({
@@ -57,11 +71,6 @@ accounts.post('/:id/transactions/', (req, res) => {
 });
 
 // update all accounts
-// TODO: implement
-accounts.put('/', (req, res) => {
-    const id = parseInt(req.params.id, 10);
-    res.status(200).send({
-        message: `Update all accounts`
     });
 });
 
