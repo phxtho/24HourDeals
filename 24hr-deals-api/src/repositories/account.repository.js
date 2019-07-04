@@ -23,6 +23,7 @@ let accountSchema = new Schema({
     previousTransactions: {
         type: Array
     }
+    
 });
 
 // Compile model
