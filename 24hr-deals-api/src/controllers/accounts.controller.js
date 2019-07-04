@@ -1,117 +1,99 @@
 const express = require('express');
-const repoFactory = require('../factories/repository.factory');
-const accountRepo = repoFactory.accounts;
 const accounts = express();
+
+const commandInvoker = require('../commands/command.invoker');
+const commandFactory = require('../factories/command.factory');
+let accountCommands = commandFactory['accounts'];
 
 // create an account
 accounts.post('/', (req, res) => {
-    accountRepo.accounts.create(req.body,(err,ret)=>{
-        if(err) res.status(404).send(err);
-        res.status(200).send(ret);
+    commandInvoker.execute(accountCommands.createAccount(req.body)).then((response, error) => {
+        if (error) { res.status(400).send(error) }
+        res.status(200).send(response);
     });
 });
 
 // get all accounts
 accounts.get('/', (req, res) => {
-    let promise = accountRepo.getAllAccounts();
-    promise.exec((err,acc) => {
-        if(err) {
-            res.status(404).send(err)
-        } else {
-            res.status(200).send(acc);
-        }
+    // Unit of Work
+    commandsToExecute = async () => {
+        // get accounts
+        let accounts = {};
+        await commandInvoker.execute(accountCommands.getAllAccounts(req))
+            .then((resolve, error) => {
+                accounts = resolve;
+            });
+        return accounts
+    }
+
+    // Execute the Unit of Work
+    commandsToExecute().then((accounts, error) => {
+        if (!accounts) { res.status(404).send(error); }
+        else { res.status(200).send(accounts); }
     });
+
 });
 
 // get account by id
 accounts.get('/:id', (req, res) => {
     const id = req.params.id;
-    accountRepo.getAccountById(id).exec((err,ret)=>{
-        if(err) { res.status(404).send(err) }
-        else { res.status(200).send(ret);}
-    });
+    commandInvoker.execute(accountCommands.getAccountById(id)).then((account, error) => {
+        if (error) { res.status(400).send(error) }
+        res.status(200).send(account);
+    })
 });
-
-/**************************************TO DO***********************/
 
 // get account transaction history
-// TODO: implement
-accounts.get('/:id/transaction-history', (req, res) => {
+accounts.get('/:id/transactions', (req, res) => {
     const id = req.params.id;
-    let transactionHistory = {};
-    accountRepo.getTransactions(id).then((resolve, err)=>{
-        if (!resolve) {
-            res.status(404).send("not found");
-        } else if (err) {
-            res.status(400).send(err)
-        } else {
-            transactionHistory = resolve;
-            res.status(200).send(transactionHistory);
-        }
-    });
+    commandInvoker.execute(accountCommands.getTransactionHistory(id)).then((response, error) => {
+        if (error) { res.status(400).send(error) }
+        res.status(200).send(response);
+    })
 });
 
-// get account basket
-accounts.get('/:id/basket', (req, res) => {
-    const id = req.params.id;
-    let basket = {};
-    accountRepo.getBasket(id).then((resolve, err)=>{
-        if (!resolve) {
-            res.status(404).send("not found");
-        } else if (err) {
-            res.status(400).send(err)
-        } else {
-            basket = resolve;
-            res.status(200).send(basket);
-        }
-    });
-});
-
-// update account basket
-accounts.put('/:id/basket', (req, res) => {
-    const id = req.params.id;
-    let basket = {};
-    accountRepo.updateBasket(id, req.body).then((resolve, err) => {
-        if (!resolve) {
-            res.status(404).send("not found");
-        } else if (err) {
-            res.status(400).send(err)
-        } else {
-            basket = resolve;
-            res.status(200).send(basket);
-        }
-    });
-});
 
 // checkout on an account
-// TODO: implement
-accounts.post('/:id/transactions/', (req, res) => {
+accounts.post('/:id/transactions', (req, res) => {
     const id = req.params.id;
-    let account = {};
-    accountRepo.insertTransactions(id, req.body).then((resolve, err)=>{
-        if (!resolve) {
-            res.status(404).send("not found");
-        } else if (err) {
-            res.status(400).send(err)
-        } else {
-            account = resolve;
-            res.status(200).send(account);
-        }
+    let completedTransaction = {};
+
+    // Unit of Work
+    commandsToExecute = async () => {
+        // Post a transaction
+        let model = {   
+                id:id, 
+                data :req.body
+                };
+
+        console.log(accountCommands.checkOutTransaction(model));
+        await commandInvoker.execute(accountCommands.checkOutTransaction(model)).then((response,error) => {
+            if(error)
+                return error;
+            completedTransaction = response;
+
+        });
+
+        // clear transactions 
+        //await commandInvoker.execute(accountCommands.)
+
+        return completedTransaction
+    }
+
+    commandsToExecute().then((transaction, error) => {
+        if (error) { res.status(404).send(error); }
+        else { res.status(200).send(transaction); }
     });
+
+
 });
 
 // update all accounts
-// TODO: implement
-accounts.put('/', (req, res) => {
-    const id = parseInt(req.params.id, 10);
-    res.status(200).send({
-        message: `Update all accounts`
-    });
-});
+// not implemented ************************************************************
 
 // update account
 accounts.put('/:id', (req, res) => {
-    const id = parseInt(req.params.id, 10);
+    const id = req.params.id;
 
     if (accountsModel.updateAccount(req.body)) {
         res.status(200).send({
@@ -126,7 +108,7 @@ accounts.put('/:id', (req, res) => {
 });
 
 accounts.delete('/:id', (req, res) => {
-    const id = parseInt(req.params.id, 10);
+    const id = req.params.id;
 
     if (accountsModel.removeAccount(id)) {
         res.status(200).send({
@@ -137,6 +119,23 @@ accounts.delete('/:id', (req, res) => {
             message: 'Resource does not exist'
         })
     }
+});
+
+accounts.get('/:id/basket', (req, res) => {
+    const id = req.params.id;
+    commandInvoker.execute(accountCommands.getBasket(id)).then((response, error) => {
+        if (error) { res.status(400).send(error) }
+        res.status(200).send(response);
+    });
+});
+
+accounts.put('/:id/basket', (req, res) => {
+    const id = req.params.id;
+    console.log(req.body);
+    commandInvoker.execute(accountCommands.updateBasket({ id: id, basket: req.body })).then((response, error) => {
+        if (error) { res.status(400).send(error) }
+        res.status(200).send(response);
+    });
 });
 
 module.exports = accounts;
