@@ -42,6 +42,10 @@ let getTransactionHistory = (model) => {
     return accountRepo.getTransactions(model);
 }
 
+let checkOutTransaction = (model) => {
+    return accountRepo.insertTransactions(id, transaction)
+}
+
 class Command {
     constructor(execute, undo, model){
         this.execute = execute;
@@ -90,7 +94,11 @@ accountCommands.updateUndoCommand = (model) => {
 
 accountCommands.getTransactionHistory = (model) => {
     return new Command(getTransactionHistory, getTransactionHistory, model);
-}
+};
+
+accountCommands.checkOutTransaction = (id, data) => {
+    return new Command(checkOutTransaction, checkOutTransaction,  )
+} 
 
 
 module.exports = accountCommands;

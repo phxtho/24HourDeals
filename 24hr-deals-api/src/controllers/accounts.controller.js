@@ -5,9 +5,6 @@ const commandInvoker = require('../commands/command.invoker');
 const commandFactory = require('../factories/command.factory');
 let accountCommands = commandFactory['accounts'];
 
-// var Command = require('../commands/command')
-
-
 // create an account
 accounts.post('/', (req, res) => {
     commandInvoker.execute(accountCommands.createAccount(req.body)).then((response,error)=>{
@@ -60,21 +57,15 @@ accounts.get('/:id/transactions', (req, res) => {
 // checkout on an account
 accounts.post('/:id/transactions', (req, res) => {
     const id = req.params.id;
-    let account = {};
-    accountRepo.insertTransactions(id, req.body).then((resolve, err)=>{
-        if (!resolve) {
-            res.status(404).send("not found");
-        } else if (err) {
-            res.status(400).send(err)
-        } else {
-            account = resolve;
-            res.status(200).send(account);
-        }
-    });
+    commandInvoker.execute(accountCommands.checkOutTransaction()).then((response,error) => {
+        if(error){res.status(400).send(error)}
+        res.status(200).send(response);
+    })
+    
 });
 
 // update all accounts
-// not implemented
+// not implemented ************************************************************
 
 // update account
 accounts.put('/:id', (req, res) => {
