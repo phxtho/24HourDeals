@@ -51,6 +51,7 @@ let getBasket = (model) => {
 }
 
 let updateBasket = (model) => {
+    // console.log(model.basket);
     return accountRepo.updateBasket(model.id, model.basket);
 }
 

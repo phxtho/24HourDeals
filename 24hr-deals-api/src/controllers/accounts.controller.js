@@ -99,15 +99,16 @@ accounts.get('/:id/basket', (req, res) => {
     commandInvoker.execute(accountCommands.getBasket(id)).then((response, error) => {
         if (error) { res.status(400).send(error) }
         res.status(200).send(response);
-    })
-})
+    });
+});
 
 accounts.put('/:id/basket', (req, res) => {
     const id = req.params.id;
-    commandInvoker.execute(accountCommands.updateBasket({ id: id, baskket: req.body })).then((response, error) => {
+    console.log(req.body);
+    commandInvoker.execute(accountCommands.updateBasket({ id: id, basket: req.body })).then((response, error) => {
         if (error) { res.status(400).send(error) }
         res.status(200).send(response);
-    })
-})
+    });
+});
 
 module.exports = accounts;

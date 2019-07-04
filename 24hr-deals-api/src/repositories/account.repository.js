@@ -115,15 +115,14 @@ accountRepo.insertTransactions = (id, transaction) => {
     return func();
 };
 
-accountRepo.getbasket = (accountId) => {
+accountRepo.getBasket = (accountId) => {
     let func = async () => {
         let basket = {};
         await AccountModel.findById(accountId, (err, account) => {
-            if (account) {
-                basket = account.basket;
-            } else if (err) {
-                basket = err;
-            }
+            if (err)
+                return (err);
+            console.log(account.basket);
+            basket = account.basket;
         });
         return basket;
     };
@@ -133,14 +132,11 @@ accountRepo.getbasket = (accountId) => {
 accountRepo.updateBasket = (accountId, basket) => {
     let func = async () => {
         let basketData = {};
-        await AccountModel.findByIdAndUpdate(accountId, {
-            $push: basket
-        }, { new: true }, (err, account) => {
-            if (err) {
-                console.log(err);
-            } else if (account) {
-                basketData = account
-            }
+        await AccountModel.findByIdAndUpdate(accountId, { $set: basket }, { upsert: true, new: true }, (err, account) => {
+            if (err)
+                return (err);
+            console.log(account.basket);
+            basketData = account.basket;
         });
         return basketData;
     };
