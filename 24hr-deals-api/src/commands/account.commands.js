@@ -2,39 +2,31 @@ const repoFactory = require('../factories/repository.factory');
 const accountRepo = repoFactory.accounts;
 
 let post = (model) => {
-    console.log('posted an item');
     return accountRepo.insertAccount(model);
 }
 let remove = (model) => {
-    console.log('removed an item');
     return accountRepo.deleteAccountByEmail(model.email,res);
 }
 let get = (model) => {
-    console.log('ewwwwww');
     return accountRepo.getAllAccounts();
 }
 
 let getById = (model) => {
-    console.log('selected info by id');
     return accountRepo.getAccountById(model);
 };
 
 let getByUserName = (model) => {
-    console.log('selected info by id');
     return accountRepo.getAccountByUserName(model.params.username, res);
 }
 
 let getByEmail = (model) => {
-    console.log('selected info by id');
     return accountRepo.getAccountByEmail(model.body.email, res);
 }
 
 let update = (model) =>{
-    console.log('updated info');
     return accountRepo.updateAccount(model.body);
 }
 let updateUndo = (model) => {
-    console.log('undid last update in accounts resetting data to ' + model);
     return accountRepo.updateAccount(model.body);
 }
 
@@ -97,6 +89,7 @@ accountCommands.getTransactionHistory = (model) => {
 };
 
 accountCommands.checkOutTransaction = (model) => {
+    console.log('new checkOut Command');
     return new Command(checkOutTransaction, checkOutTransaction, model )
 } 
 

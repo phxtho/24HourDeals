@@ -98,6 +98,7 @@ accountRepo.getTransactions = (accountId) => {
 }
 
 accountRepo.insertTransactions = (id, transaction) => {
+
     let func = async () => {
         let transactions = {};
         await AccountModel.findByIdAndUpdate(id, {

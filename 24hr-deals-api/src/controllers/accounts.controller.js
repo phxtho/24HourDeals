@@ -58,13 +58,18 @@ accounts.get('/:id/transactions', (req, res) => {
 // checkout on an account
 accounts.post('/:id/transactions', (req, res) => {
     const id = req.params.id;
-
     let completedTransaction = {};
 
     // Unit of Work
     commandsToExecute = async () => {
         // Post a transaction
-        await commandInvoker.execute(accountCommands.checkOutTransaction({id:id, data :req.body})).then((response,error) => {
+        let model = {   
+                id:id, 
+                data :req.body
+                };
+
+        console.log(accountCommands.checkOutTransaction(model));
+        await commandInvoker.execute(accountCommands.checkOutTransaction(model)).then((response,error) => {
             if(error)
                 return error;
             completedTransaction = response;
