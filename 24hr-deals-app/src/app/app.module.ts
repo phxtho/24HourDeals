@@ -15,8 +15,6 @@ import { HttpClientModule } from "@angular/common/http";
 import { FlexLayoutModule } from "@angular/flex-layout";
 
 import { BrowserAnimationsModule } from "@angular/platform-browser/animations";
-import { AllProductsComponent } from "./components/all-products/all-products.component";
-import { BasketComponent } from "./components/basket/basket.component";
 import { BootstrapModalModule } from 'ng6-bootstrap-modal';
 import { MDBBootstrapModule } from 'angular-bootstrap-md';
 
@@ -34,12 +32,13 @@ import { LoginPageComponent } from './components/login-page/login-page.component
 import { SignupPageComponent } from './components/signup-page/signup-page.component';
 import { ChangePasswordPageComponent } from './components/change-password-page/change-password-page.component';
 import { AccountPageComponent } from './components/account-page/account-page.component';
+import { ProductComponent } from "./components/product/product.component";
+import { BasketPageComponent } from "./components/basket-page/basket-page.component";
 
 @NgModule({
   declarations: [
     AppComponent,
-    AllProductsComponent,
-    BasketComponent,
+    BasketPageComponent,
     CountDown,
     LandingPageComponent,
     BasketItemComponent,
@@ -48,7 +47,8 @@ import { AccountPageComponent } from './components/account-page/account-page.com
     LoginPageComponent,
     SignupPageComponent,
     ChangePasswordPageComponent,
-    AccountPageComponent
+    AccountPageComponent,
+    ProductComponent
   ],
   imports: [
     BrowserModule,
@@ -67,7 +67,8 @@ import { AccountPageComponent } from './components/account-page/account-page.com
     BootstrapModalModule,
     FormsModule,
     ReactiveFormsModule,
-    MatSnackBarModule
+    MatSnackBarModule,
+    MatIconModule
   ],
   providers: [],
   bootstrap: [AppComponent]

@@ -12,7 +12,9 @@
                   <input placeholder="Password" type="text" id="loginPassword" class="form-control">
                 </div>
                 <div class="form-row">
-                    <button class="dusty-grass-gradient btn" style="margin: 20px ; margin-right: 40%">Login</button>
+                    <form (submit)='onLogin(LoginForm)' #LoginForm>
+                      <button class="dusty-grass-gradient btn" style="margin: 20px ; margin-right: 40%">Login</button>
+                    </form>
                     <button class="night-fade-gradient btn" style="margin: 20px">Sign Up</button>
                 </div>
               </div>
