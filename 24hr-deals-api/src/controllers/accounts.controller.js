@@ -5,7 +5,7 @@ const accounts = express();
 
 // create an account
 accounts.post('/', (req, res) => {
-    accountRepo.accounts.create((err,ret)=>{
+    accountRepo.accounts.create({username: 'chad',email: 'chad@com'},(err,ret)=>{
         if(err) res.status(404).send(err);
         res.status(200).send(ret);
     });

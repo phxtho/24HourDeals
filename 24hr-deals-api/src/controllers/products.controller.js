@@ -4,22 +4,29 @@
 */
 
 const express = require('express');
-const productsFactory = require('../factories/repository.factory');
+const repoFactory = require('../factories/repository.factory');
 
+const productsRepo = repoFactory.products;
 const controller = express();
 
 // get all products
 controller.get('/', (req, res) => {
-    res.status(200).send({
-        products: productsFactory.products
-    })
+    console.log('ftw');
+    let promise = productsRepo.getAllProducts();
+    promise.exec((err,data)=>{
+        if(err) {
+            res.status(404).send(err)
+        } else {
+            res.status(200).send(data);
+        }
+    });
 });
 
 // get product with id
 controller.get('/:id', (req, res) => {
     const id = parseInt(req.params.id, 10);
 
-    product = productsFactory.getProduct(id);
+    product = productsModel.getProduct(id);
 
     if (!!product) {
         res.status(200).send({
@@ -34,15 +41,8 @@ controller.get('/:id', (req, res) => {
 
 // create product
 controller.post('/', (req, res) => {
-    if (productsFactory.addProduct(req.body)) {
-        res.status(200).send({
-            product: productsFactory.getProduct(req.body.id)
-        })
-    } else {
-        res.status(400).send({
-            message: 'Failed to create product'
-        })
-    }
+    productsRepo.insertProduct({name: 'biscuit',description: 'cookie but better'});
+    res.send({message: 'uhhhh'});
 });
 
 // update all products
@@ -57,10 +57,10 @@ controller.put('/', (req, res) => {
 controller.put('/:id', (req, res) => {
     const id = parseInt(req.params.id, 10);
 
-    if (productsFactory.updateProduct(req.body)) {
+    if (productsModel.updateProduct(req.body)) {
         res.status(200).send({
             message: `Updated product with id ${id}`,
-            product: productsFactory.getProduct(id)
+            product: productsModel.getProduct(id)
         })
     } else {
         res.status(400).send({
@@ -73,7 +73,7 @@ controller.put('/:id', (req, res) => {
 controller.delete('/:id', (req, res) => {
     const id = parseInt(req.params.id, 10);
 
-    if (productsFactory.removeProduct(id)) {
+    if (productsModel.removeProduct(id)) {
         res.status(200).send({
             message: `Deleted product with id: ${id}`
         })
