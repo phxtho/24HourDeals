@@ -15,7 +15,6 @@ import { HttpClientModule } from "@angular/common/http";
 import { FlexLayoutModule } from "@angular/flex-layout";
 
 import { BrowserAnimationsModule } from "@angular/platform-browser/animations";
-import { BasketComponent } from "./components/basket/basket.component";
 
 import { CountDown } from "ng2-date-countdown";
 import { LandingPageComponent } from "./components/home-page/home-page.component";
@@ -28,11 +27,12 @@ import { MatRadioModule } from "@angular/material/radio";
 import { FormsModule, ReactiveFormsModule } from "@angular/forms";
 import { MatSnackBarModule } from "@angular/material/snack-bar";
 import { ProductComponent } from "./components/product/product.component";
+import { BasketPageComponent } from './components/basket-page/basket-page.component';
 
 @NgModule({
   declarations: [
     AppComponent,
-    BasketComponent,
+    BasketPageComponent,
     CountDown,
     LandingPageComponent,
     BasketItemComponent,

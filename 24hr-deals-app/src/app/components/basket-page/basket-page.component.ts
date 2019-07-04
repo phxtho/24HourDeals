@@ -5,10 +5,10 @@ import { Subscription } from "rxjs";
 
 @Component({
   selector: "app-basket",
-  templateUrl: "./basket.component.html",
-  styleUrls: ["./basket.component.scss"]
+  templateUrl: "./basket-page.component.html",
+  styleUrls: ["./basket-page.component.scss"]
 })
-export class BasketComponent implements OnInit, OnDestroy {
+export class BasketPageComponent implements OnInit, OnDestroy {
   private basketItems = new Array<ProductModel>();
   private subscription = new Subscription();
   private totalPrice: number;
