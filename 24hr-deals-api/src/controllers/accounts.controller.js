@@ -67,6 +67,22 @@ accounts.get('/:id/basket', (req, res) => {
     });
 });
 
+// update account basket
+accounts.put('/:id/basket', (req, res) => {
+    const id = req.params.id;
+
+    if (!!accountsModel.updateBasket(id, req.body)) {
+        res.status(200).send({
+            message: `Updated basket of account with id ${id}`,
+            basket: accountsModel.getBasket(id)
+        })
+    } else {
+        res.status(400).send({
+            message: `Failed to update basket of account with id ${id}`
+        })
+    }
+});
+
 // checkout on an account
 // TODO: implement
 accounts.post('/:id/transactions/', (req, res) => {
@@ -105,22 +121,6 @@ accounts.put('/:id', (req, res) => {
     } else {
         res.status(400).send({
             message: `Failed to update account with id: ${id}`
-        })
-    }
-});
-
-// update account basket
-accounts.put('/:id/basket', (req, res) => {
-    const id = parseInt(req.params.id, 10);
-
-    if (!!accountsModel.updateBasket(id, req.body)) {
-        res.status(200).send({
-            message: `Updated basket of account with id ${id}`,
-            basket: accountsModel.getBasket(id)
-        })
-    } else {
-        res.status(400).send({
-            message: `Failed to update basket of account with id ${id}`
         })
     }
 });
