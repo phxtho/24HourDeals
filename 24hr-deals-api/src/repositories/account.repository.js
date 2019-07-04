@@ -141,21 +141,4 @@ accountRepo.updateBasket = (accountId, basket) => {
     return func();
 }
 
-accountRepo.deleteBasketItem = (accountId, basket) => {
-    let func = async () => {
-        let basketData = {};
-        await AccountModel.findOneAndUpdate(accountId, {
-            $pull: basket
-        }, {safe: true}, (err,account)=>{
-            if (err) {
-                console.log(err);
-            } else if (account) {
-                basketData = account
-            }
-        });
-        return basketData;
-    };
-    return func();
-}
-
 module.exports = accountRepo;

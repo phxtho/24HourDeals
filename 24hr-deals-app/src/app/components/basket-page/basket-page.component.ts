@@ -8,7 +8,6 @@ import {
 import { ProductService } from "src/app/services/product.service";
 import { ProductModel } from "src/app/models/product/product-model";
 import { Subscription } from "rxjs";
-import { BasketItemModel } from "src/app/models/basket-item/basket-item.model";
 import { BasketService } from "src/app/services/basket.service";
 import { AccountService } from "src/app/services/accounts.service";
 import { BasketItemComponent } from "../basket-item/basket-item.component";
@@ -44,7 +43,6 @@ export class BasketPageComponent implements OnInit, OnDestroy {
   }
 
   getTotalPrice() {
-    console.log("get price");
     let total = 0;
     for (let basketItem of this.basketItems) {
       total += basketItem.price;
@@ -53,14 +51,15 @@ export class BasketPageComponent implements OnInit, OnDestroy {
   }
 
   updatePrice(price) {
-    console.log("Price: " + price);
     this.totalPrice += price;
   }
 
   checkout() {
+    let test = 0;
     for (let basketItem of this.basketItems) {
       //setting the stock value
-      // this.basketItemComponent.
+      test = this.basketItemComponent.getQuantity();
+      console.log(test);
     }
   }
 

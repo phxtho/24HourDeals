@@ -26,6 +26,8 @@ export class BasketItemComponent implements OnInit {
     this.quantity++;
 
     this.updatePrice();
+
+    
   }
 
   decreaseQuantity() {
@@ -41,11 +43,11 @@ export class BasketItemComponent implements OnInit {
     this.updateTotalPrice.emit(this.price - priceBefore);
   }
 
-  removeItem() {
+  removeItem() {}
 
-  }
+  updateQuantity() {}
 
-  updateQuantity(){
-    
+  getQuantity() {
+    return this.quantity;
   }
 }
