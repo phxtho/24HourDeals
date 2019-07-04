@@ -1,37 +1,37 @@
 <div class="container ">
   <div class="form-row">
     <div class="form-group">
-  <button mat-button (click)="toggleBasketItemChecked()">
-    <mat-icon>delete_outline</mat-icon>
-  </button>
-  <img
-    src="https://material.angular.io/assets/img/examples/shiba2.jpg"
-    alt="Photo of a Shiba Inu"
-  />
-  <div class="title-description-container col-md-6">
-    <b>{{ name }}</b>
-    <p class="description">{{ description }}</p>
-  </div>
- </div>
+      <button mat-button (click)="removeItem()">
+        <mat-icon>delete_outline</mat-icon>
+      </button>
+      <img
+        src="https://material.angular.io/assets/img/examples/shiba2.jpg"
+        alt="Photo of a Shiba Inu"
+      />
+      <div class="title-description-container col-md-6">
+        <b>{{ name }}</b>
+        <p class="description">{{ description }}</p>
+      </div>
+    </div>
   </div>
   <div class="form-row">
     <div class="item-count-container col-md-4">
-    <button
-      class="remove-button"
-      mat-icon-button
-      color="primary"
-      (click)="decreaseQuantity()"
-    >
-      <mat-icon>remove</mat-icon>
-    </button>
-    <mat-form-field class="item-count">
-      <input matInput value="{{ quantity }}" />
-    </mat-form-field>
-    <button mat-icon-button color="primary" (click)="increaseQuantity()">
-      <mat-icon>add</mat-icon>
-    </button>
-  </div>
+      <button
+        class="remove-button"
+        mat-icon-button
+        color="primary"
+        (click)="decreaseQuantity()"
+      >
+        <mat-icon>remove</mat-icon>
+      </button>
+      <mat-form-field class="item-count">
+        <input readonly matInput value="{{ quantity }}" />
+      </mat-form-field>
+      <button mat-icon-button color="primary" (click)="increaseQuantity()">
+        <mat-icon>add</mat-icon>
+      </button>
+    </div>
 
-  <p class="price" style="margin-left: 40%">R{{ price }}</p>
-</div>
+    <p class="price" style="margin-left: 40%">R{{ price }}</p>
+  </div>
 </div>

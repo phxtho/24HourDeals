@@ -109,7 +109,7 @@ accountRepo.insertTransactions = (id, transaction) => {
     return func();
 };
 
-accountRepo.getbasket = (accountId) => {
+accountRepo.getBasket = (accountId) => {
     let func = async () => {
         let basket = {};
         await AccountModel.findById(accountId, (err,account)=>{

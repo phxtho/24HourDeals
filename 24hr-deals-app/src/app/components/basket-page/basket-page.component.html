@@ -2,6 +2,7 @@
 
 <app-basket-item
   *ngFor="let basketItem of basketItems"
+  (updateTotalPrice)="updatePrice($event)"
   [name]="basketItem.name"
   [description]="basketItem.description"
   [quantity]="1"
