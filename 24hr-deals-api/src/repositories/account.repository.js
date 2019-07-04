@@ -43,23 +43,23 @@ accountRepo.getAllAccounts = () => {
 };
 
 accountRepo.getAccountById = (accountId) => {
-    return AccountModel.findById(accountId);
+    return AccountModel.findById(accountId).exec();
 };
 
 accountRepo.getAccountByEmail = (emailAdress) => {
-    return AccountModel.find({email: emailAdress});
+    return AccountModel.find({email: emailAdress}).exec();
 }
 
 accountRepo.getAccountByUserName = (userName) => {
-    return AccountModel.find({username: userName});
+    return AccountModel.find({username: userName}).exec();
 }
 
 accountRepo.deleteAccountByUserName = (userName) => {
-    return AccountModel.deleteOne({name : userName});
+    return AccountModel.deleteOne({name : userName}).exec();
 };
 
 accountRepo.deleteAccountByEmail = (emailAddress) => {
-    return AccountModel.deleteOne({email : emailAddress});
+    return AccountModel.deleteOne({email : emailAddress}).exec();
 };
 
 accountRepo.updateAccount = (account) => {
@@ -69,6 +69,7 @@ accountRepo.updateAccount = (account) => {
             accountDoc.save(account);
         }
     })
+}
 
 accountRepo.createTransactions = (transaction) => {
     let transactions = new AccountModel.previousTransactions(transaction);
@@ -79,17 +80,21 @@ accountRepo.createTransactions = (transaction) => {
         }
         return (transactions);
     });
-}
+};
 
 accountRepo.getTransactions = (accountId) => {
     //Should return a Pending promise
+    console.log('wud');
     let func = async () => {
         let transactionHistory = {};
         await AccountModel.findById(accountId, (err,account)=>{
+            if(err)
+                return(err);
             transactionHistory = account.previousTransactions;
         });
         return transactionHistory;
     };
+    console.log(func);
     return func();
 }
 
@@ -123,7 +128,7 @@ accountRepo.getbasket = (accountId) => {
         return basket;
     };
     return func();
-}
+};
 
 accountRepo.updateBasket = (accountId, basket) => {
     let func = async () => {
@@ -140,6 +145,6 @@ accountRepo.updateBasket = (accountId, basket) => {
         return basketData;
     };
     return func();
-}
+};
 
 module.exports = accountRepo;

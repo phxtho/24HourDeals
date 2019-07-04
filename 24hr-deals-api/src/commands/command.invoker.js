@@ -5,7 +5,7 @@ const commandInvoker = () => {
     return {
         execute: function (command) {
             // Execute the command and return a promise
-            currentPromise = command.execute(command.table, command.model);
+            currentPromise = command.execute(command.model);
 
             // Push it on the stack
             commands.push(command);
@@ -15,7 +15,7 @@ const commandInvoker = () => {
 
         undo: function () {
             var command = commands.pop();
-            currentPromise = command.undo(command.table, command.model);
+            currentPromise = command.undo(command.model);
         },
 
         getCurrentValue: function () {

@@ -1,7 +1,7 @@
 const express = require('express');
 const accounts = express();
 
-const commandInvoker = require('../commands/command.invoker')();
+const commandInvoker = require('../commands/command.invoker');
 const commandFactory = require('../factories/command.factory');
 let accountCommands = commandFactory['accounts'];
 
@@ -10,7 +10,7 @@ let accountCommands = commandFactory['accounts'];
 
 // create an account
 accounts.post('/', (req, res) => {
-    commandInvoker.execute(new accountCommands.createCommand(req.body)).then((response,error)=>{
+    commandInvoker.execute(accountCommands.createAccount(req.body)).then((response,error)=>{
         if(error){res.status(400).send(error)}
         res.status(200).send(response);
     });
@@ -22,11 +22,10 @@ accounts.get('/', (req, res) => {
     commandsToExecute = async () => {
         // get accounts
         let accounts = {};
-        await commandInvoker.execute(new accountCommands.getAllAccounts(req)
+        await commandInvoker.execute(accountCommands.getAllAccounts(req))
                             .then((resolve,error)=>{
                                 accounts = resolve;
-                            })
-        );
+                            });
         return accounts
     }
 
@@ -43,27 +42,23 @@ accounts.get('/', (req, res) => {
 // get account by id
 accounts.get('/:id', (req, res) => {
     const id = req.params.id;
-    commandInvoker.execute(new accountCommands.getByIdCommand(req.body)).then((response,error)=>{
+    commandInvoker.execute(accountCommands.getAccountById(id)).then((account,error) => {
         if(error){res.status(400).send(error)}
-        res.status(200).send(response);
-    });
+        res.status(200).send(account);
+    })
 });
 
-
-/*
-*******************************************************************
-                                TODO
-*******************************************************************
-*/
-
 // get account transaction history
-accounts.get('/:id/transaction-history', (req, res) => {
-    const id = parseInt(req.params.id, 10);
-    commandInvoker.execute(new accountCommands)
+accounts.get('/:id/transactions', (req, res) => {
+    const id = req.params.id;
+    commandInvoker.execute(accountCommands.getTransactionHistory(id)).then((response,error) => {
+        if(error){res.status(400).send(error)}
+        res.status(200).send(response);
+    })
 });
 
 // checkout on an account
-accounts.post('/:id/transactions/', (req, res) => {
+accounts.post('/:id/transactions', (req, res) => {
     const id = req.params.id;
     let account = {};
     accountRepo.insertTransactions(id, req.body).then((resolve, err)=>{
@@ -79,12 +74,11 @@ accounts.post('/:id/transactions/', (req, res) => {
 });
 
 // update all accounts
-    });
-});
+// not implemented
 
 // update account
 accounts.put('/:id', (req, res) => {
-    const id = parseInt(req.params.id, 10);
+    const id = req.params.id;
 
     if (accountsModel.updateAccount(req.body)) {
         res.status(200).send({
@@ -99,7 +93,7 @@ accounts.put('/:id', (req, res) => {
 });
 
 accounts.delete('/:id', (req, res) => {
-    const id = parseInt(req.params.id, 10);
+    const id = req.params.id;
 
     if (accountsModel.removeAccount(id)) {
         res.status(200).send({
