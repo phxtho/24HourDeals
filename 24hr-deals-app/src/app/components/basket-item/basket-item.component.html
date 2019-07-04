@@ -1,4 +1,6 @@
-<div class="container">
+<div class="container ">
+  <div class="form-row">
+    <div class="form-group">
   <button mat-button (click)="toggleBasketItemChecked()">
     <mat-icon>delete_outline</mat-icon>
   </button>
@@ -6,12 +8,14 @@
     src="https://material.angular.io/assets/img/examples/shiba2.jpg"
     alt="Photo of a Shiba Inu"
   />
-  <div class="title-description-container">
+  <div class="title-description-container col-md-6">
     <b>{{ name }}</b>
     <p class="description">{{ description }}</p>
   </div>
-
-  <div class="item-count-container">
+ </div>
+  </div>
+  <div class="form-row">
+    <div class="item-count-container col-md-4">
     <button
       class="remove-button"
       mat-icon-button
@@ -28,5 +32,6 @@
     </button>
   </div>
 
-  <p class="price">R{{ price }}</p>
+  <p class="price" style="margin-left: 40%">R{{ price }}</p>
+</div>
 </div>
