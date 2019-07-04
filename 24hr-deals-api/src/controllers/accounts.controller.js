@@ -7,7 +7,6 @@ let accountCommands = commandFactory['accounts'];
 
 // create an account
 accounts.post('/', (req, res) => {
-    console.log('youre creating an account mate');
     commandInvoker.execute(accountCommands.createAccount(req.body)).then((response,error)=>{
         if(error){res.status(400).send(error)}
         res.status(200).send(response);
