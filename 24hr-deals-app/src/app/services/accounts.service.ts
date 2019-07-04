@@ -13,19 +13,19 @@ export class AccountService {
 
   getAllAccounts() {
     return this.httpClient
-      .get(this.apiUrl + "/accounts")
+      .get<AccountModel[]>(this.apiUrl + "/accounts")
       .pipe(map(res => res["accounts"]));
   }
 
   getAccount(id: number) {
     return this.httpClient
-      .get(this.apiUrl + "/accounts/" + id)
+      .get<AccountModel[]>(this.apiUrl + "/accounts/" + id)
       .pipe(map(res => res["account"]));
   }
 
   createAccounts(product: AccountModel) {
     return this.httpClient
-      .post(this.apiUrl + "/accounts/", product)
+      .post<AccountModel[]>(this.apiUrl + "/accounts/", product)
       .pipe(map(res => res["account"]));
   }
 }

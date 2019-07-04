@@ -5,6 +5,7 @@ export class AccountModel {
   userId: number;
   email: string;
   name: string;
+  basket: TransactionModel;
   transactions: TransactionModel;
   addresses: string;
   billingDetails: string;

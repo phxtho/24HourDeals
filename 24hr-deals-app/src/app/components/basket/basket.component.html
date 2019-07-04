@@ -13,10 +13,15 @@
 </div>
 
 <div class="button-container">
-  <button mat-raised-button color="warn" (click)='removeItems()'>
+  <button mat-raised-button color="warn" (click)="removeItems()">
     Remove
   </button>
-  <button mat-raised-button color="primary" (click)='checkout()' routerLink="/checkout">
+  <button
+    mat-raised-button
+    color="primary"
+    (click)="checkout()"
+    routerLink="/checkout"
+  >
     Checkout
   </button>
 </div>

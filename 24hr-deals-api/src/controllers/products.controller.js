@@ -41,8 +41,8 @@ controller.get('/:id', (req, res) => {
 
 // create product
 controller.post('/', (req, res) => {
-    productsRepo.insertProduct({name: 'biscuit',description: 'cookie but better'});
-    res.send({message: 'uhhhh'});
+    productsRepo.insertProduct(req.body);
+    res.send(req.body);
 });
 
 // update all products
