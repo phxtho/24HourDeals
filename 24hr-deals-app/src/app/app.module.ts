@@ -29,6 +29,8 @@ import { MatSnackBarModule } from "@angular/material/snack-bar";
 import { ProductComponent } from "./components/product/product.component";
 import { BasketPageComponent } from "./components/basket-page/basket-page.component";
 import { TransactionHistooryPageComponent } from './components/transaction-histoory-page/transaction-histoory-page.component';
+import { TransactionHistoryPageComponent } from './components/transaction-history-page/transaction-history-page.component';
+import { TransactionHistoryItemComponent } from './components/transaction-history-item/transaction-history-item.component';
 
 @NgModule({
   declarations: [
@@ -40,7 +42,9 @@ import { TransactionHistooryPageComponent } from './components/transaction-histo
     CheckoutPageComponent,
     CheckoutItemComponent,
     ProductComponent,
-    TransactionHistooryPageComponent
+    TransactionHistooryPageComponent,
+    TransactionHistoryPageComponent,
+    TransactionHistoryItemComponent
   ],
   imports: [
     BrowserModule,

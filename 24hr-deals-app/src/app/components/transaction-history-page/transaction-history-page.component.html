@@ -1,0 +1,9 @@
+<h1 class="heading">Checkout</h1>
+
+<app-transaction-history-item
+  *ngFor="let transactionHistoryItem of transactionHistoryItems"
+  [name]="transactionHistoryItem.name"
+  [description]="transactionHistoryItem.description"
+  [quantity]="1"
+  [price]="transactionHistoryItem.price"
+></app-transaction-history-item>
