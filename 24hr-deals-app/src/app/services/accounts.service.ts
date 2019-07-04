@@ -8,24 +8,33 @@ import { AccountModel } from "../models/account/account-model";
 })
 export class AccountService {
   apiUrl: string = "http://localhost:5000";
+  private currentAccountId: string;
 
   constructor(private httpClient: HttpClient) {}
 
   getAllAccounts() {
     return this.httpClient
       .get<AccountModel[]>(this.apiUrl + "/accounts")
-      .pipe(map(res => res["accounts"]));
+      .pipe(map(res => res));
   }
 
-  getAccount(id: number) {
+  setCurrentAccountId(account) {
+    this.currentAccountId = account._id;
+  }
+
+  getCurrentAccountId() {
+    return this.currentAccountId;
+  }
+
+  getAccount(id: string) {
     return this.httpClient
-      .get<AccountModel[]>(this.apiUrl + "/accounts/" + id)
-      .pipe(map(res => res["account"]));
+      .get<AccountModel>(this.apiUrl + "/accounts/" + id)
+      .pipe(map(res => res));
   }
 
   createAccounts(account: AccountModel) {
     return this.httpClient
       .post<AccountModel[]>(this.apiUrl + "/accounts/", account)
-      .pipe(map(res => res["account"]));
+      .pipe(map(res => res));
   }
 }
