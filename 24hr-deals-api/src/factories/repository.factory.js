@@ -17,7 +17,8 @@ mongoose
 
 // Mapping repo name to repo implementation
 let repoList = [{name: 'accounts', source:'../repositories/account.repository'},
-                {name: 'products', source:'../repositories/product.repository'}]; 
+                {name: 'products', source:'../repositories/product.repository'}, 
+                {name: 'categories', source:'../repositories/category.repository'}]; 
 
 for (const repo of repoList) {
     repoFactory[repo.name] = require(repo.source);

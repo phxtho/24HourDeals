@@ -9,6 +9,7 @@ dealsAPI.use(bodyParser.urlencoded({ extended: false }));
 
 dealsAPI.use('/products', cors(), require('./src/controllers/products.controller'));
 dealsAPI.use('/accounts', cors(), require('./src/controllers/accounts.controller'));
+dealsAPI.use('/categories', cors(), require('./src/controllers/categories.controller'));
 
 const PORT = 5000;
 
