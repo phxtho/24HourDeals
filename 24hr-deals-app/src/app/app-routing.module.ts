@@ -5,6 +5,7 @@ import { CheckoutPageComponent } from "./components/checkout-page/checkout-page.
 import { LoginPageComponent } from "./components/login-page/login-page.component";
 import { SignupPageComponent } from "./components/signup-page/signup-page.component";
 import { BasketPageComponent } from './components/basket-page/basket-page.component';
+import { AuthGuardService } from './guards/auth-guard.service';
 
 const routes: Routes = [
   { path: "", redirectTo: "/login", pathMatch: "full" },

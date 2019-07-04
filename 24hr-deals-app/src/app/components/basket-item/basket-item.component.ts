@@ -1,4 +1,4 @@
-import { Component, OnInit, Input } from "@angular/core";
+import { Component, OnInit, Input, Output, EventEmitter } from "@angular/core";
 
 @Component({
   selector: "app-basket-item",
@@ -11,18 +11,43 @@ export class BasketItemComponent implements OnInit {
   @Input() quantity: number;
   @Input() price: number;
 
+  @Output()
+  updateTotalPrice = new EventEmitter<number>();
+
+  originalPrice: number;
+
   constructor() {}
 
-  ngOnInit() {}
+  ngOnInit() {
+    this.originalPrice = this.price;
+  }
 
   increaseQuantity() {
     this.quantity++;
+
+    this.updatePrice();
+
+    
   }
 
   decreaseQuantity() {
-    if (this.quantity > 1) this.quantity--;
+    if (this.quantity > 1) {
+      this.quantity--;
+      this.updatePrice();
+    }
   }
 
-  toggleBasketItemChecked() {}
+  updatePrice() {
+    let priceBefore = this.price;
+    this.price = this.originalPrice * this.quantity;
+    this.updateTotalPrice.emit(this.price - priceBefore);
+  }
 
+  removeItem() {}
+
+  updateQuantity() {}
+
+  getQuantity() {
+    return this.quantity;
+  }
 }

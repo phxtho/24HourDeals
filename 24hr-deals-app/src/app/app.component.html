@@ -19,6 +19,15 @@
     <mat-icon>shopping_cart</mat-icon>
     <!-- <span>amount</span> -->
   </button>
+
+  <ng-template *ngIf="accountService.isLoggedIn; then authenticated else guest"></ng-template>
+  
+  <ng-template #authenticated>
+    <button mat-button color="accent" (click)= "changeLoggedIn()">SignOut</button>
+  </ng-template>
+  <ng-template #guest>
+    <button mat-button color="accent" (click)= "changeLoggedIn()">SignIn</button>
+  </ng-template>
 </mat-toolbar>
 
 <router-outlet></router-outlet>

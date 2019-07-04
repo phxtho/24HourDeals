@@ -109,7 +109,7 @@ accountRepo.insertTransactions = (id, transaction) => {
     return func();
 };
 
-accountRepo.getbasket = (accountId) => {
+accountRepo.getBasket = (accountId) => {
     let func = async () => {
         let basket = {};
         await AccountModel.findById(accountId, (err,account)=>{
@@ -127,16 +127,16 @@ accountRepo.getbasket = (accountId) => {
 accountRepo.updateBasket = (accountId, basket) => {
     let func = async () => {
         let basketData = {};
-        await AccountModel.findByIdAndUpdate(accountId, {
+        const test = await AccountModel.findByIdAndUpdate(accountId, {
             $push: basket
-        }, {new: true}, (err,account)=>{
+        }, {upsert: true, new: true}, (err,account)=>{
             if (err) {
                 console.log(err);
             } else if (account) {
                 basketData = account
             }
         });
-        return basketData;
+        return test;
     };
     return func();
 }

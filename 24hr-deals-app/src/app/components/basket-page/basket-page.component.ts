@@ -1,10 +1,16 @@
-import { Component, OnInit, OnDestroy, AfterViewInit } from "@angular/core";
+import {
+  Component,
+  OnInit,
+  OnDestroy,
+  AfterViewInit,
+  ViewChild
+} from "@angular/core";
 import { ProductService } from "src/app/services/product.service";
 import { ProductModel } from "src/app/models/product/product-model";
 import { Subscription } from "rxjs";
-import { BasketItemModel } from "src/app/models/basket-item/basket-item.model";
 import { BasketService } from "src/app/services/basket.service";
 import { AccountService } from "src/app/services/accounts.service";
+import { BasketItemComponent } from "../basket-item/basket-item.component";
 
 @Component({
   selector: "app-basket",
@@ -23,22 +29,15 @@ export class BasketPageComponent implements OnInit, OnDestroy {
     private accountService: AccountService
   ) {}
 
+  @ViewChild(BasketItemComponent, { static: false })
+  basketItemComponent: BasketItemComponent;
+
   ngOnInit() {
-    // this.subscription.add(
-    //   this.basketService.getBasket(1).subscribe(res => {
-    //     this.basketItems = res;
-    //     this.totalPrice = this.getTotalPrice();
-
-    //     //uncheck all the basket items by default
-    //   })
-    // );
-
+    let userId = this.accountService.getCurrentAccountId();
     this.subscription.add(
-      this.productService.getAllProducts().subscribe(res => {
+      this.basketService.getBasket(userId).subscribe(res => {
         this.basketItems = res;
         this.totalPrice = this.getTotalPrice();
-
-        //uncheck all the basket items by default
       })
     );
   }
@@ -51,8 +50,16 @@ export class BasketPageComponent implements OnInit, OnDestroy {
     return total;
   }
 
+  updatePrice(price) {
+    this.totalPrice += price;
+  }
+
   checkout() {
+    let test = 0;
     for (let basketItem of this.basketItems) {
+      //setting the stock value
+      test = this.basketItemComponent.getQuantity();
+      console.log(test);
     }
   }
 

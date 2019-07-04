@@ -10,6 +10,7 @@
   <app-product
     *ngFor="let product of products"
     [id]="product._id"
+    [product]="product"
     [name]="product.name"
     [category]="product.categrory"
     [description]="product.description"

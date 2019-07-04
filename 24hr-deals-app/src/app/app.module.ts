@@ -34,6 +34,7 @@ import { ChangePasswordPageComponent } from './components/change-password-page/c
 import { AccountPageComponent } from './components/account-page/account-page.component';
 import { ProductComponent } from "./components/product/product.component";
 import { BasketPageComponent } from "./components/basket-page/basket-page.component";
+import { TransactionHistooryPageComponent } from './components/transaction-histoory-page/transaction-histoory-page.component';
 
 @NgModule({
   declarations: [
@@ -48,7 +49,8 @@ import { BasketPageComponent } from "./components/basket-page/basket-page.compon
     SignupPageComponent,
     ChangePasswordPageComponent,
     AccountPageComponent,
-    ProductComponent
+    ProductComponent,
+    TransactionHistooryPageComponent
   ],
   imports: [
     BrowserModule,
