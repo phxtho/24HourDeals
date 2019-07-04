@@ -55,7 +55,7 @@ accounts.get('/:id/transaction-history', (req, res) => {
 accounts.get('/:id/basket', (req, res) => {
     const id = req.params.id;
     let basket = {};
-    accountRepo.getTransactions(id).then((resolve, err)=>{
+    accountRepo.getBasket(id).then((resolve, err)=>{
         if (!resolve) {
             res.status(404).send("not found");
         } else if (err) {
@@ -70,17 +70,17 @@ accounts.get('/:id/basket', (req, res) => {
 // update account basket
 accounts.put('/:id/basket', (req, res) => {
     const id = req.params.id;
-
-    if (!!accountsModel.updateBasket(id, req.body)) {
-        res.status(200).send({
-            message: `Updated basket of account with id ${id}`,
-            basket: accountsModel.getBasket(id)
-        })
-    } else {
-        res.status(400).send({
-            message: `Failed to update basket of account with id ${id}`
-        })
-    }
+    let basket = {};
+    accountRepo.updateBasket(id, req.body).then((resolve, err) => {
+        if (!resolve) {
+            res.status(404).send("not found");
+        } else if (err) {
+            res.status(400).send(err)
+        } else {
+            basket = resolve;
+            res.status(200).send(basket);
+        }
+    });
 });
 
 // checkout on an account
