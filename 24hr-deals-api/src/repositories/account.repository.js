@@ -17,6 +17,12 @@ let accountSchema = new Schema({
     },
     billingDetails: {
         type : Array
+    },
+    basket: {
+        type: Array
+    },
+    previousTransactions: {
+        type: Array
     }
 });
 
@@ -62,5 +68,60 @@ accountRepo.deleteAccountByUserName = (userName) => {
 accountRepo.deleteAccountByEmail = (emailAddress) => {
     return Account.deleteOne({email : emailAddress});
 };
+
+accountRepo.createTransactions = (transaction) => {
+    let transactions = new AccountModel.previousTransactions(transaction);
+    transactions.save((err, transactions) => {
+        if (err) {
+            console.error(err)
+            return (err);
+        }
+        return (transactions);
+    });
+}
+
+accountRepo.getTransactions = (accountId) => {
+    //Should return a Pending promise
+    let func = async () => {
+        let transactionHistory = {};
+        await AccountModel.findById(accountId, (err,account)=>{
+            transactionHistory = account.previousTransactions;
+        });
+        return transactionHistory;
+    };
+    return func();
+}
+
+accountRepo.insertTransactions = (id, transaction) => {
+    let func = async () => {
+        let transactions = {};
+        await AccountModel.findByIdAndUpdate(id, {
+            $push: transaction
+        }, {new: true}, (err,account)=>{
+            if (err) {
+                console.log(err);
+            } else if (account) {
+                transactions = account
+            }
+        });
+        return transactions;
+    };
+    return func();
+};
+
+accountRepo.getbasket = (accountId) => {
+    let func = async () => {
+        let basket = {};
+        await AccountModel.findById(accountId, (err,account)=>{
+            if (account) {
+                basket = account.basket;
+            } else if (err) {
+                basket = err;
+            }
+        });
+        return basket;
+    };
+    return func();
+}
 
 module.exports = accountRepo;

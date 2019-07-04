@@ -5,7 +5,7 @@ const accounts = express();
 
 // create an account
 accounts.post('/', (req, res) => {
-    accountRepo.accounts.create({username: 'chad',email: 'chad@com'},(err,ret)=>{
+    accountRepo.accounts.create(req.body,(err,ret)=>{
         if(err) res.status(404).send(err);
         res.status(200).send(ret);
     });
@@ -37,26 +37,50 @@ accounts.get('/:id', (req, res) => {
 // get account transaction history
 // TODO: implement
 accounts.get('/:id/transaction-history', (req, res) => {
-    const id = parseInt(req.params.id, 10);
-    res.status(200).send({
-        message: 'Transaction History'
-    })
+    const id = req.params.id;
+    let transactionHistory = {};
+    accountRepo.getTransactions(id).then((resolve, err)=>{
+        if (!resolve) {
+            res.status(404).send("not found");
+        } else if (err) {
+            res.status(400).send(err)
+        } else {
+            transactionHistory = resolve;
+            res.status(200).send(transactionHistory);
+        }
+    });
 });
 
 // get account basket
 accounts.get('/:id/basket', (req, res) => {
-    const id = parseInt(req.params.id, 10);
-    res.status(200).send({
-        basket: accountsModel.getBasket(id)
-    })
+    const id = req.params.id;
+    let basket = {};
+    accountRepo.getTransactions(id).then((resolve, err)=>{
+        if (!resolve) {
+            res.status(404).send("not found");
+        } else if (err) {
+            res.status(400).send(err)
+        } else {
+            basket = resolve;
+            res.status(200).send(basket);
+        }
+    });
 });
 
 // checkout on an account
 // TODO: implement
 accounts.post('/:id/transactions/', (req, res) => {
-    const id = parseInt(req.params.id, 10);
-    res.status(200).send({
-        message: `Checkout on account`
+    const id = req.params.id;
+    let account = {};
+    accountRepo.insertTransactions(id, req.body).then((resolve, err)=>{
+        if (!resolve) {
+            res.status(404).send("not found");
+        } else if (err) {
+            res.status(400).send(err)
+        } else {
+            account = resolve;
+            res.status(200).send(account);
+        }
     });
 });
 

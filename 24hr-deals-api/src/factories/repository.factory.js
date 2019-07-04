@@ -5,7 +5,7 @@ const server = 'mongo:27017';
 const database = '24hr-deals';  
 
 const repoFactory = {}; 
-
+mongoose.set('useFindAndModify', false);
 // Connect to MongoDB
 mongoose
     .connect(
