@@ -124,4 +124,21 @@ accountRepo.getbasket = (accountId) => {
     return func();
 }
 
+accountRepo.updateBasket = (accountId, basket) => {
+    let func = async () => {
+        let basket = {};
+        await AccountModel.findByIdAndUpdate(id, {
+            $push: basket
+        }, {new: true}, (err,account)=>{
+            if (err) {
+                console.log(err);
+            } else if (account) {
+                basket = account
+            }
+        });
+        return basket;
+    };
+    return func();
+}
+
 module.exports = accountRepo;
