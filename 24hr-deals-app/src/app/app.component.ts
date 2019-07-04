@@ -31,7 +31,6 @@ export class AppComponent {
     this.subscription.add(
       this.accountService.getAllAccounts().subscribe(res => {
         this.accountNumber = res[0]["_id"];
-        console.log(res[0]);
         this.setActiveAccount();
       })
     );

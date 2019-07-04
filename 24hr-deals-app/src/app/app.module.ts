@@ -28,6 +28,7 @@ import { FormsModule, ReactiveFormsModule } from "@angular/forms";
 import { MatSnackBarModule } from "@angular/material/snack-bar";
 import { ProductComponent } from "./components/product/product.component";
 import { BasketPageComponent } from "./components/basket-page/basket-page.component";
+import { TransactionHistooryPageComponent } from './components/transaction-histoory-page/transaction-histoory-page.component';
 
 @NgModule({
   declarations: [
@@ -38,7 +39,8 @@ import { BasketPageComponent } from "./components/basket-page/basket-page.compon
     BasketItemComponent,
     CheckoutPageComponent,
     CheckoutItemComponent,
-    ProductComponent
+    ProductComponent,
+    TransactionHistooryPageComponent
   ],
   imports: [
     BrowserModule,
