@@ -12,11 +12,11 @@ let accountSchema = new Schema({
         unique: true,
         required: true
     },
-    addresses : {
-        type : Array
+    addresses: {
+        type: Array
     },
     billingDetails: {
-        type : Array
+        type: Array
     },
     basket: {
         type: Array
@@ -36,7 +36,7 @@ accountRepo.accounts = AccountModel;
 
 accountRepo.insertAccount = (account) => {
     return AccountModel.create(account);
-} 
+}
 
 accountRepo.getAllAccounts = () => {
     return AccountModel.find().exec();
@@ -47,23 +47,23 @@ accountRepo.getAccountById = (accountId) => {
 };
 
 accountRepo.getAccountByEmail = (emailAdress) => {
-    return AccountModel.find({email: emailAdress}).exec();
+    return AccountModel.find({ email: emailAdress }).exec();
 }
 
 accountRepo.getAccountByUserName = (userName) => {
-    return AccountModel.find({username: userName}).exec();
+    return AccountModel.find({ username: userName }).exec();
 }
 
 accountRepo.deleteAccountByUserName = (userName) => {
-    return AccountModel.deleteOne({name : userName}).exec();
+    return AccountModel.deleteOne({ name: userName }).exec();
 };
 
 accountRepo.deleteAccountByEmail = (emailAddress) => {
-    return AccountModel.deleteOne({email : emailAddress}).exec();
+    return AccountModel.deleteOne({ email: emailAddress }).exec();
 };
 
 accountRepo.updateAccount = (account) => {
-    AccountModel.findById(account.id, function(err, accountDoc) {
+    AccountModel.findById(account.id, function (err, accountDoc) {
         if (err) return console.error(err);
         else {
             accountDoc.save(account);
@@ -87,9 +87,9 @@ accountRepo.getTransactions = (accountId) => {
     console.log('wud');
     let func = async () => {
         let transactionHistory = {};
-        await AccountModel.findById(accountId, (err,account)=>{
-            if(err)
-                return(err);
+        await AccountModel.findById(accountId, (err, account) => {
+            if (err)
+                return (err);
             transactionHistory = account.previousTransactions;
         });
         return transactionHistory;
@@ -103,7 +103,7 @@ accountRepo.insertTransactions = (id, transaction) => {
         let transactions = {};
         await AccountModel.findByIdAndUpdate(id, {
             $push: transaction
-        }, {new: true}, (err,account)=>{
+        }, { new: true }, (err, account) => {
             if (err) {
                 console.log(err);
             } else if (account) {
@@ -118,7 +118,7 @@ accountRepo.insertTransactions = (id, transaction) => {
 accountRepo.getbasket = (accountId) => {
     let func = async () => {
         let basket = {};
-        await AccountModel.findById(accountId, (err,account)=>{
+        await AccountModel.findById(accountId, (err, account) => {
             if (account) {
                 basket = account.basket;
             } else if (err) {
@@ -135,7 +135,7 @@ accountRepo.updateBasket = (accountId, basket) => {
         let basketData = {};
         await AccountModel.findByIdAndUpdate(accountId, {
             $push: basket
-        }, {new: true}, (err,account)=>{
+        }, { new: true }, (err, account) => {
             if (err) {
                 console.log(err);
             } else if (account) {

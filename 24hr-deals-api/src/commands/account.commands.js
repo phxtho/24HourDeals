@@ -7,7 +7,7 @@ let post = (model) => {
 }
 let remove = (model) => {
     console.log('removed an item');
-    return accountRepo.deleteAccountByEmail(model.email,res);
+    return accountRepo.deleteAccountByEmail(model.email, res);
 }
 let get = (model) => {
     console.log('ewwwwww');
@@ -29,7 +29,7 @@ let getByEmail = (model) => {
     return accountRepo.getAccountByEmail(model.body.email, res);
 }
 
-let update = (model) =>{
+let update = (model) => {
     console.log('updated info');
     return accountRepo.updateAccount(model.body);
 }
@@ -46,8 +46,16 @@ let checkOutTransaction = (model) => {
     return accountRepo.insertTransactions(id, transaction)
 }
 
+let getBasket = (model) => {
+    return accountRepo.getBasket(model);
+}
+
+let updateBasket = (model) => {
+    return accountRepo.updateBasket(model.id, model.basket);
+}
+
 class Command {
-    constructor(execute, undo, model){
+    constructor(execute, undo, model) {
         this.execute = execute;
         this.undo = undo;
         this.model = model;
@@ -56,8 +64,8 @@ class Command {
 
 let accountCommands = {};
 
-accountCommands.createAccount =  (model) => {
-        return new Command(post, remove, model);
+accountCommands.createAccount = (model) => {
+    return new Command(post, remove, model);
 };
 
 accountCommands.deleteAccountByEmail = (model) => {
@@ -97,8 +105,16 @@ accountCommands.getTransactionHistory = (model) => {
 };
 
 accountCommands.checkOutTransaction = (id, data) => {
-    return new Command(checkOutTransaction, checkOutTransaction,  )
-} 
+    return new Command(checkOutTransaction, checkOutTransaction)
+}
+
+accountCommands.getBasket = (model) => {
+    return new Command(getBasket, getBasket, model);
+}
+
+accountCommands.updateBasket = (model) => {
+    return new Command(updateBasket, updateBasket, model);
+}
 
 
 module.exports = accountCommands;
