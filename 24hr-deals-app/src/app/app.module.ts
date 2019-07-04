@@ -17,6 +17,8 @@ import { FlexLayoutModule } from "@angular/flex-layout";
 import { BrowserAnimationsModule } from "@angular/platform-browser/animations";
 import { AllProductsComponent } from "./components/all-products/all-products.component";
 import { BasketComponent } from "./components/basket/basket.component";
+import { BootstrapModalModule } from 'ng6-bootstrap-modal';
+import { MDBBootstrapModule } from 'angular-bootstrap-md';
 
 import { CountDown } from "ng2-date-countdown";
 import { LandingPageComponent } from "./components/home-page/home-page.component";
@@ -28,6 +30,10 @@ import { CheckoutItemComponent } from "./components/checkout-item/checkout-item.
 import { MatRadioModule } from "@angular/material/radio";
 import { FormsModule, ReactiveFormsModule } from "@angular/forms";
 import { MatSnackBarModule } from "@angular/material/snack-bar";
+import { LoginPageComponent } from './components/login-page/login-page.component';
+import { SignupPageComponent } from './components/signup-page/signup-page.component';
+import { ChangePasswordPageComponent } from './components/change-password-page/change-password-page.component';
+import { AccountPageComponent } from './components/account-page/account-page.component';
 
 @NgModule({
   declarations: [
@@ -38,7 +44,11 @@ import { MatSnackBarModule } from "@angular/material/snack-bar";
     LandingPageComponent,
     BasketItemComponent,
     CheckoutPageComponent,
-    CheckoutItemComponent
+    CheckoutItemComponent,
+    LoginPageComponent,
+    SignupPageComponent,
+    ChangePasswordPageComponent,
+    AccountPageComponent
   ],
   imports: [
     BrowserModule,
@@ -54,6 +64,7 @@ import { MatSnackBarModule } from "@angular/material/snack-bar";
     MatCheckboxModule,
     MatInputModule,
     MatRadioModule,
+    BootstrapModalModule,
     FormsModule,
     ReactiveFormsModule,
     MatSnackBarModule
