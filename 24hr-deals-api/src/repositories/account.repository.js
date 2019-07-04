@@ -126,17 +126,17 @@ accountRepo.getbasket = (accountId) => {
 
 accountRepo.updateBasket = (accountId, basket) => {
     let func = async () => {
-        let basket = {};
+        let basketData = {};
         await AccountModel.findByIdAndUpdate(id, {
             $push: basket
         }, {new: true}, (err,account)=>{
             if (err) {
                 console.log(err);
             } else if (account) {
-                basket = account
+                basketData = account
             }
         });
-        return basket;
+        return basketData;
     };
     return func();
 }
