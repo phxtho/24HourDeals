@@ -2,7 +2,6 @@ import { Injectable } from "@angular/core";
 import { BasketItemModel } from "../models/basket-item/basket-item.model";
 import { map } from "rxjs/operators";
 import { HttpClient } from "@angular/common/http";
-import { ProductModel } from "../models/product/product-model";
 
 @Injectable({
   providedIn: "root"
@@ -14,21 +13,23 @@ export class BasketService {
 
   getBasket(accountId) {
     return this.httpClient
-      .get<ProductModel[]>(this.apiUrl + "/accounts/" + accountId + "/basket")
+      .get<BasketItemModel[]>(
+        this.apiUrl + "/accounts/" + accountId + "/basket"
+      )
       .pipe(map(res => res));
   }
 
   getBasketItem(accountId, basketItemId) {
     return this.httpClient
-      .get<ProductModel>(
+      .get<BasketItemModel>(
         this.apiUrl + "/accounts/" + accountId + "/basket/" + basketItemId
       )
       .pipe(map(res => res));
   }
 
-  addItemToBasket(accountId, basketItem: ProductModel) {
+  addItemToBasket(accountId, basketItem: BasketItemModel) {
     return this.httpClient
-      .post<ProductModel>(
+      .post<BasketItemModel>(
         this.apiUrl + "/accounts/" + accountId + "/basket/",
         basketItem
       )

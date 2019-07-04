@@ -23,9 +23,9 @@ export class AccountService {
       .pipe(map(res => res["account"]));
   }
 
-  createAccounts(account: AccountModel) {
+  createAccounts(product: AccountModel) {
     return this.httpClient
-      .post<AccountModel[]>(this.apiUrl + "/accounts/", account)
+      .post<AccountModel[]>(this.apiUrl + "/accounts/", product)
       .pipe(map(res => res["account"]));
   }
 }

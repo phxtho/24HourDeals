@@ -22,7 +22,4 @@ export class BasketItemComponent implements OnInit {
   decreaseQuantity() {
     if (this.quantity > 1) this.quantity--;
   }
-
-  toggleBasketItemChecked() {}
-
 }
