@@ -1,0 +1,41 @@
+.container {
+    margin: 16px;
+  }
+  
+  img {
+    width: 10%;
+    vertical-align: middle;
+    margin: 16px;
+  }
+  
+  .title-description-container {
+    display: inline-block;
+  }
+  
+  .description {
+    font-size: 0.8em;
+  }
+  
+  .price {
+    display: inline-block;
+    margin-left: 25%;
+    text-align: center;
+  }
+  
+  .remove-button {
+    align-items: flex-end;
+  }
+  
+  .item-count-container {
+    display: inline-block;
+    margin-left: 25%;
+  
+    .item-count {
+      width: 24px;
+  
+      input {
+        text-align: center;
+      }
+    }
+  }
+  

@@ -5,6 +5,9 @@ import { ProductModel } from "src/app/models/product/product-model";
 import { ProductService } from "src/app/services/product.service";
 import { FormGroup, FormBuilder } from "@angular/forms";
 import { MatSnackBar } from "@angular/material/snack-bar";
+import { AccountService } from "src/app/services/accounts.service";
+import { TransactionService } from "src/app/services/transaction.service";
+import { BasketService } from "src/app/services/basket.service";
 
 @Component({
   selector: "app-checkout-page",
@@ -46,12 +49,15 @@ export class CheckoutPageComponent implements OnInit {
     }
   ];
 
-  private checkoutItems = new Array<ProductModel>();
+  private checkoutItems;
+
   private totalPrice: number;
 
   constructor(
     private http: HttpClient,
     private apiService: ProductService,
+    private basketService: BasketService,
+    private accountService: AccountService,
     private formBuilder: FormBuilder,
     private snackBar: MatSnackBar
   ) {}
@@ -72,8 +78,9 @@ export class CheckoutPageComponent implements OnInit {
   }
 
   setupSubscriptions() {
+    let userId = this.accountService.getCurrentAccountId();
     this.subscription.add(
-      this.apiService.getAllProducts().subscribe(res => {
+      this.basketService.getBasket(userId).subscribe(res => {
         this.checkoutItems = res;
         this.totalPrice = this.getTotalPrice();
       })
