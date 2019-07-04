@@ -1,14 +1,30 @@
 const express = require('express');
 const repoFactory = require('../factories/repository.factory');
 const accountRepo = repoFactory.accounts;
+const commandExecutor = require('../commands/commandHandler');
+var Command = require('../commands/command')
 const accounts = express();
+
+const exec = commandExecutor();
+
 
 // create an account
 accounts.post('/', (req, res) => {
-    accountRepo.accounts.create({username: 'chad',email: 'chad@com'},(err,ret)=>{
-        if(err) res.status(404).send(err);
-        res.status(200).send(ret);
-    });
+    // accountRepo.accounts.create({username: 'chad',email: 'chad@com'},(err,ret)=>{
+    //     if(err) res.status(404).send(err);
+    //     res.status(200).send(ret);
+    // });
+    // var executor = new commandExecutor.executor(res);
+    exec.execute(new Command.postCommand('accounts', req.body, res));
+});
+
+accounts.post('/undo', (req, res) => {
+    // accountRepo.accounts.create({username: 'chad',email: 'chad@com'},(err,ret)=>{
+    //     if(err) res.status(404).send(err);
+    //     res.status(200).send(ret);
+    // });
+    var executor = new commandExecutor.executor(res);
+    executor.execute(new Command.postCommand('accounts', req.body));
 });
 
 // get all accounts
