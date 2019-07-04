@@ -30,7 +30,7 @@ export class LandingPageComponent implements OnInit {
 
   ngOnInit() {
     this.getAllProducts();
-    this.getAllAccounts();
+    // this.getAllAccounts();
   }
 
   getAllProducts() {
@@ -40,37 +40,6 @@ export class LandingPageComponent implements OnInit {
         console.log(this.products);
       })
     );
-  }
-
-  getAllAccounts() {
-    this.subscription.add(
-      this.accountService.getAllAccounts().subscribe(res => {
-        this.accounts = res;
-
-        //TEMPORARY
-        //Set the first account in accounts as the logged in account
-        //Will be set on login
-        this.setActiveAccount();
-
-        this.getAccount();
-      })
-    );
-  }
-
-  getAccount() {
-    let accId = this.accountService.getCurrentAccountId();
-    console.log(accId);
-    this.accountService.getAccount(accId).subscribe(res => {
-      this.account = res;
-      console.log(this.account);
-    });
-  }
-
-  setActiveAccount() {
-    for (let account of this.accounts) {
-      this.accountService.setCurrentAccountId(account);
-      return;
-    }
   }
 
   testing(event) {
