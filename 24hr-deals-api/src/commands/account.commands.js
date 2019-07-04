@@ -43,7 +43,7 @@ let getTransactionHistory = (model) => {
 }
 
 let checkOutTransaction = (model) => {
-    return accountRepo.insertTransactions(id, transaction)
+    return accountRepo.insertTransactions(model.id, model.data);
 }
 
 class Command {
@@ -96,8 +96,8 @@ accountCommands.getTransactionHistory = (model) => {
     return new Command(getTransactionHistory, getTransactionHistory, model);
 };
 
-accountCommands.checkOutTransaction = (id, data) => {
-    return new Command(checkOutTransaction, checkOutTransaction,  )
+accountCommands.checkOutTransaction = (model) => {
+    return new Command(checkOutTransaction, checkOutTransaction, model )
 } 
 
 

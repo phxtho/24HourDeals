@@ -7,6 +7,7 @@ let accountCommands = commandFactory['accounts'];
 
 // create an account
 accounts.post('/', (req, res) => {
+    console.log('youre creating an account mate');
     commandInvoker.execute(accountCommands.createAccount(req.body)).then((response,error)=>{
         if(error){res.status(400).send(error)}
         res.status(200).send(response);
@@ -54,13 +55,36 @@ accounts.get('/:id/transactions', (req, res) => {
     })
 });
 
+
 // checkout on an account
 accounts.post('/:id/transactions', (req, res) => {
     const id = req.params.id;
-    commandInvoker.execute(accountCommands.checkOutTransaction()).then((response,error) => {
-        if(error){res.status(400).send(error)}
-        res.status(200).send(response);
-    })
+
+    let completedTransaction = {};
+
+    // Unit of Work
+    commandsToExecute = async () => {
+        // Post a transaction
+        await commandInvoker.execute(accountCommands.checkOutTransaction({id:id, data :req.body})).then((response,error) => {
+            if(error)
+                return error;
+            completedTransaction = response;
+
+        });
+
+        // clear transactions 
+        //await commandInvoker.execute(accountCommands.)
+
+        return completedTransaction
+}
+
+    commandsToExecute().then((transaction,error)=>{
+        if(error) 
+            {res.status(404).send(error);}
+        else
+            {res.status(200).send(transaction);}
+    });
+    
     
 });
 
