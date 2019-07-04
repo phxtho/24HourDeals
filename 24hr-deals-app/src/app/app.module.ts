@@ -27,7 +27,7 @@ import { MatRadioModule } from "@angular/material/radio";
 import { FormsModule, ReactiveFormsModule } from "@angular/forms";
 import { MatSnackBarModule } from "@angular/material/snack-bar";
 import { ProductComponent } from "./components/product/product.component";
-import { BasketPageComponent } from './components/basket-page/basket-page.component';
+import { BasketPageComponent } from "./components/basket-page/basket-page.component";
 
 @NgModule({
   declarations: [
@@ -56,7 +56,8 @@ import { BasketPageComponent } from './components/basket-page/basket-page.compon
     MatRadioModule,
     FormsModule,
     ReactiveFormsModule,
-    MatSnackBarModule
+    MatSnackBarModule,
+    MatIconModule
   ],
   providers: [],
   bootstrap: [AppComponent]
