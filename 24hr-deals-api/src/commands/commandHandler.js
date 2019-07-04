@@ -13,9 +13,9 @@ let executor = function () {
             commands.push(command);
         },
 
-        undo: function () {
+        undo: function (res) {
             var command = commands.pop();
-            current = command.undo(command.table, command.model, command.res);
+            current = command.undo(command.table, command.model, res);
         },
 
         getCurrentValue: function () {
@@ -24,18 +24,4 @@ let executor = function () {
     }
 }
 
-// function run() {
-//     var executorApp = new executor();
-
-//     executorApp.execute(new Command.postCommand('accounts', {}));
-//     executorApp.execute(new Command.postCommand('products', {}));
-//     executorApp.execute(new Command.postCommand('test', {}));
-//     executorApp.execute(new Command.postCommand('test2', {}));
-//     executorApp.execute(new Command.updateCommand('updateTable', {id: 1}))
-
-//     executorApp.undo();
-//     executorApp.undo();
-//     executorApp.undo();
-
-// }
 module.exports = executor;

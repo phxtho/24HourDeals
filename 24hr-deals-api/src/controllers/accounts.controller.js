@@ -10,42 +10,22 @@ const exec = commandExecutor();
 
 // create an account
 accounts.post('/', (req, res) => {
-    // accountRepo.accounts.create({username: 'chad',email: 'chad@com'},(err,ret)=>{
-    //     if(err) res.status(404).send(err);
-    //     res.status(200).send(ret);
-    // });
-    // var executor = new commandExecutor.executor(res);
     exec.execute(new Command.postCommand('accounts', req.body, res));
 });
 
 accounts.post('/undo', (req, res) => {
-    // accountRepo.accounts.create({username: 'chad',email: 'chad@com'},(err,ret)=>{
-    //     if(err) res.status(404).send(err);
-    //     res.status(200).send(ret);
-    // });
-    var executor = new commandExecutor.executor(res);
-    executor.execute(new Command.postCommand('accounts', req.body));
+    exec.undo(res);
 });
 
 // get all accounts
 accounts.get('/', (req, res) => {
-    let promise = accountRepo.getAllAccounts();
-    promise.exec((err,acc) => {
-        if(err) {
-            res.status(404).send(err)
-        } else {
-            res.status(200).send(acc);
-        }
-    });
+    exec.execute(new Command.getCommand('accounts', req.body, res));
 });
 
 // get account by id
 accounts.get('/:id', (req, res) => {
     const id = req.params.id;
-    accountRepo.getAccountById(id).exec((err,ret)=>{
-        if(err) { res.status(404).send(err) }
-        else { res.status(200).send(ret);}
-    });
+    exec.execute(new Command.getByIdCommand('accounts', req, res));
 });
 
 /**************************************TO DO***********************/
