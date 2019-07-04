@@ -11,7 +11,7 @@ const controller = express();
 // get all products
 controller.get('/', (req, res) => {
     res.status(200).send({
-        products: productsModel.products
+        products: productsFactory.products
     })
 });
 
@@ -19,7 +19,7 @@ controller.get('/', (req, res) => {
 controller.get('/:id', (req, res) => {
     const id = parseInt(req.params.id, 10);
 
-    product = productsModel.getProduct(id);
+    product = productsFactory.getProduct(id);
 
     if (!!product) {
         res.status(200).send({
@@ -34,9 +34,9 @@ controller.get('/:id', (req, res) => {
 
 // create product
 controller.post('/', (req, res) => {
-    if (productsModel.addProduct(req.body)) {
+    if (productsFactory.addProduct(req.body)) {
         res.status(200).send({
-            product: productsModel.getProduct(req.body.id)
+            product: productsFactory.getProduct(req.body.id)
         })
     } else {
         res.status(400).send({
@@ -57,10 +57,10 @@ controller.put('/', (req, res) => {
 controller.put('/:id', (req, res) => {
     const id = parseInt(req.params.id, 10);
 
-    if (productsModel.updateProduct(req.body)) {
+    if (productsFactory.updateProduct(req.body)) {
         res.status(200).send({
             message: `Updated product with id ${id}`,
-            product: productsModel.getProduct(id)
+            product: productsFactory.getProduct(id)
         })
     } else {
         res.status(400).send({
@@ -73,7 +73,7 @@ controller.put('/:id', (req, res) => {
 controller.delete('/:id', (req, res) => {
     const id = parseInt(req.params.id, 10);
 
-    if (productsModel.removeProduct(id)) {
+    if (productsFactory.removeProduct(id)) {
         res.status(200).send({
             message: `Deleted product with id: ${id}`
         })
