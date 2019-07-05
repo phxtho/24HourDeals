@@ -13,8 +13,8 @@ import { NgForm } from '@angular/forms';
 })
 export class LoginPageComponent implements OnInit {
   private subscription = new Subscription();
-  private accounts: AccountModel[];
-  private account: AccountModel;
+  private accounts : AccountModel[] =[];
+  private account = new AccountModel;
 
   constructor(private http: HttpClient,
     private accountService: AccountService) { }
@@ -26,7 +26,8 @@ export class LoginPageComponent implements OnInit {
     let email = (<HTMLInputElement>document.getElementById("loginUsername")).value;
     for(let account of this.accounts){
       if(account.email === email){
-        this.accountService.setCurrentAccountId(account);
+        this.accountService.setCurrentAccountEmail(account.email);
+        console.log(account.email+" logged in");
         window.location.href="http://localhost:4200/home/";
       }
     }

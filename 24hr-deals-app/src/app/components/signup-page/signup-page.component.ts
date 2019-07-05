@@ -20,11 +20,14 @@ export class SignupPageComponent implements OnInit {
 
   ngOnInit() {
   }
-  onSignUp(form: NgForm) {
+
+  onSignUp() {
+    document.getElementById("toper").innerHTML="Worked";
     this.account.billingDetails=[];
     this.account.addresses=[];
-    this.account.name = (<HTMLInputElement>document.getElementById("signUpName")).value +(<HTMLInputElement>document.getElementById("signUpSurname")).value;
-    this.account.userId = (<HTMLInputElement>document.getElementById("signUpEmail")).value;
+    // this.account.previousTransaction;
+    this.account.username = (<HTMLInputElement>document.getElementById("signUpName")).value +(<HTMLInputElement>document.getElementById("signUpSurname")).value;
+    this.account.email = (<HTMLInputElement>document.getElementById("signUpEmail")).value;
     if((<HTMLInputElement>document.getElementById("homeAddress")).value.length!=0){
       this.account.addresses.push((<HTMLInputElement>document.getElementById("homeAddress")).value);
     }
@@ -38,21 +41,7 @@ export class SignupPageComponent implements OnInit {
       this.account.billingDetails.push( (<HTMLInputElement>document.getElementById("debitCard")).value);
     }
     this.accountService.createAccounts(this.account);
-    this.getAllAccounts();
-    for(let account of this.accounts){
-      if(account.email === this.account.userId){
-        this.accountService.setCurrentAccountId(account);
-        // window.location.href="http://localhost:4200/home/";
-      }
-    }
-    // window.location.href="localhost:4200/home";
-  }
-  getAllAccounts() {
-    this.subscription.add(
-      this.accountService.getAllAccounts().subscribe(res => {
-        this.accounts = res;
-        console.log(this.accounts);
-      })
-    );
+    console.log(this.account);
+    window.location.href="http://localhost:4200/home";
   }
 }

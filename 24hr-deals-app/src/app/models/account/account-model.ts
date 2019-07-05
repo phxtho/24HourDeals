@@ -2,11 +2,10 @@ import { TransactionModel } from "../transaction/transaction-model";
 
 export class AccountModel {
   id: number;
-  userId: string;
+  username: string;
   email: string;
-  name: string;
   basket: TransactionModel;
-  transactions: TransactionModel;
+  previousTransaction: TransactionModel;
   addresses: string[];
   billingDetails: string[];
 }

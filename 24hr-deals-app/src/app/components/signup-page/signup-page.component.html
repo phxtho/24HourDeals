@@ -4,7 +4,7 @@
       
       <form>
               <div class="jumbotron frozen-dreams-gradient"  >
-                <h1>Sign Up:</h1>
+                <h1 id="toper">Sign Up:</h1>
                   <!-- <div class="jumbotron" style="background-image:url('assets/images/hex.jpg');color: white" ></div> -->
                   <h2>Enter Personal Details :</h2>
                   <div class="form-row">
@@ -61,14 +61,12 @@
                   </div>
               </div>
               <div class="form-row">
-                  <form (submit)='onSignUp(SignUpForm)' #SignUpForm>
-                    <button class="btn dusty-grass-gradient" style=" margin: 20px ; margin-right: 40%">Sign Up</button>
-                  </form>
-                  <button class="btn" style="background-color:red ; margin: 20px" routerLink="/login">Cancel</button>
+                  <button type="button" (click)="onSignUp()" class="dusty-grass-gradient btn" style="margin: 20px ; margin-right: 40%">Sign Up</button>
+                  <button type="button" class="btn" style="background-color:red ; margin: 20px" routerLink="/login">Cancel</button>
               </div>
               </div>
           
-              </form>
+          </form>
     </div>
   </body>
   

@@ -1,5 +1,5 @@
 import { Injectable } from "@angular/core";
-import { HttpClient } from "@angular/common/http";
+import { HttpClient ,HttpHeaders } from "@angular/common/http";
 import { map } from "rxjs/operators";
 import { AccountModel } from "../models/account/account-model";
 
@@ -9,6 +9,8 @@ import { AccountModel } from "../models/account/account-model";
 export class AccountService {
   apiUrl: string = "http://localhost:5000";
   private currentAccountId: string;
+  private currentAccountEmail: string;
+  private options = { headers: new HttpHeaders().set('Content-Type', 'application/json') };
   public isLoggedIn: boolean = false;
 
   constructor(private httpClient: HttpClient) {}
@@ -17,6 +19,14 @@ export class AccountService {
     return this.httpClient
       .get<AccountModel[]>(this.apiUrl + "/accounts")
       .pipe(map(res => res));
+  }
+
+  setCurrentAccountEmail(accountNumber: string) {
+    this.currentAccountEmail = accountNumber;
+  }
+
+  getCurrentAccountEmail() {
+    return this.currentAccountEmail;
   }
 
   setCurrentAccountId(accountNumber: string) {
@@ -34,8 +44,9 @@ export class AccountService {
   }
 
   createAccounts(account: AccountModel) {
+    this.setCurrentAccountEmail(account.email);
+    console.log(JSON.stringify(account));
     return this.httpClient
-      .post<AccountModel[]>(this.apiUrl + "/accounts/", account)
-      .pipe(map(res => res));
+      .post(this.apiUrl + "/accounts/", JSON.stringify(account),this.options).subscribe();
   }
 }

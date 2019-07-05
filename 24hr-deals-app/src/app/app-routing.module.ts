@@ -5,6 +5,7 @@ import { CheckoutPageComponent } from "./components/checkout-page/checkout-page.
 import { LoginPageComponent } from "./components/login-page/login-page.component";
 import { SignupPageComponent } from "./components/signup-page/signup-page.component";
 import { BasketPageComponent } from './components/basket-page/basket-page.component';
+import { AccountPageComponent} from "./components/account-page/account-page.component"
 import { AuthGuardService } from './guards/auth-guard.service';
 
 const routes: Routes = [
@@ -13,6 +14,7 @@ const routes: Routes = [
   { path: "basket", component: BasketPageComponent },
   { path: "login", component: LoginPageComponent },
   { path: "signup", component: SignupPageComponent },
+  { path: "account", component: AccountPageComponent },
   { path: "checkout", component: CheckoutPageComponent }
 ];
 
