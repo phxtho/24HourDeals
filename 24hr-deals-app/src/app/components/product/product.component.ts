@@ -32,7 +32,11 @@ export class ProductComponent implements OnInit {
     let obj = {
       basket: {
         name: this.name,
-        description: this.description
+        description: this.description,
+        price: this.price,
+        category: this.category,
+        stock: this.quantity,
+        dealEndTime: this.dealEndTime
       }
     };
     this.basketService

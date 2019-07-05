@@ -20,14 +20,15 @@ export class BasketItemComponent implements OnInit {
 
   ngOnInit() {
     this.originalPrice = this.price;
+    console.log(this.price);
+
+    this.updatePrice();
   }
 
   increaseQuantity() {
     this.quantity++;
 
     this.updatePrice();
-
-    
   }
 
   decreaseQuantity() {
@@ -39,6 +40,7 @@ export class BasketItemComponent implements OnInit {
 
   updatePrice() {
     let priceBefore = this.price;
+    console.log(priceBefore);
     this.price = this.originalPrice * this.quantity;
     this.updateTotalPrice.emit(this.price - priceBefore);
   }
