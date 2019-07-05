@@ -53,6 +53,22 @@ accounts.get('/:id/transactions', (req, res) => {
 });
 
 
+// update account basket by deleting item
+accounts.delete('/:id/basket', (req, res) => {
+    const id = req.params.id;
+    let basket = {};
+    accountRepo.deleteBasketItem(id, req.body).then((resolve, err) => {
+        if (!resolve) {
+            res.status(404).send("not found");
+        } else if (err) {
+            res.status(400).send(err)
+        } else {
+            basket = resolve;
+            res.status(200).send(basket);
+        }
+    });
+});
+
 // checkout on an account
 accounts.post('/:id/transactions', (req, res) => {
     const id = req.params.id;

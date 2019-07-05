@@ -1,0 +1,20 @@
+<div class="container">
+    <img
+      src="https://material.angular.io/assets/img/examples/shiba2.jpg"
+      alt="Photo of a Shiba Inu"
+    />
+  
+    <div class="title-description-container">
+      <b>{{ name }}</b>
+      <p class="description">{{ description }}</p>
+    </div>
+  
+    <div class="item-count-container">
+      <mat-form-field class="item-count">
+        <input readonly matInput value="{{ quantity }}" />
+      </mat-form-field>
+    </div>
+  
+    <p class="price">R{{ price }}</p>
+  </div>
+  

@@ -1,7 +1,6 @@
 import { Injectable } from "@angular/core";
-import { BasketItemModel } from "../models/basket-item/basket-item.model";
 import { map } from "rxjs/operators";
-import { HttpClient } from "@angular/common/http";
+import { HttpClient, HttpHeaders } from "@angular/common/http";
 import { ProductModel } from "../models/product/product-model";
 
 @Injectable({
@@ -9,6 +8,13 @@ import { ProductModel } from "../models/product/product-model";
 })
 export class BasketService {
   apiUrl: string = "http://localhost:5000";
+  private _getHeaders(): Headers {
+    let header = new Headers({
+      "Content-Type": "application/json"
+    });
+
+    return header;
+  }
 
   constructor(private httpClient: HttpClient) {}
 
@@ -26,13 +32,18 @@ export class BasketService {
       .pipe(map(res => res));
   }
 
-  addItemToBasket(accountId, basketItem: ProductModel) {
-    return this.httpClient
-      .post<ProductModel>(
-        this.apiUrl + "/accounts/" + accountId + "/basket/",
-        basketItem
-      )
-      .pipe(map(res => res));
+  addItemToBasket(accountId, basketItem) {
+    console.log("called");
+    const httpOptions = {
+      headers: new HttpHeaders({
+        "Content-Type": "application/json"
+      })
+    };
+    return this.httpClient.put(
+      this.apiUrl + "/accounts/" + accountId + "/basket/",
+      basketItem,
+      httpOptions
+    ).pipe(map(res => res));
   }
 
   removeItemFromBasket(accountId, basketItemId) {

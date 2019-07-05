@@ -15,10 +15,27 @@
     Profile
   </button>
   <span class="example-fill-remaining-space"></span>
+  <button mat-flat-button color="primary" routerLink="/transaction-history">
+    Transaction History
+  </button>
+  <span class="example-fill-remaining-space"></span>
   <button mat-flat-button color="primary" routerLink="/basket">
     <mat-icon>shopping_cart</mat-icon>
     <!-- <span>amount</span> -->
   </button>
+
+  <ng-template
+    *ngIf="accountService.isLoggedIn; then authenticated; else guest"
+  ></ng-template>
+
+  <ng-template #authenticated>
+    <button mat-button color="accent" (click)="changeLoggedIn()">
+      SignOut
+    </button>
+  </ng-template>
+  <ng-template #guest>
+    <button mat-button color="accent" (click)="changeLoggedIn()">SignIn</button>
+  </ng-template>
 </mat-toolbar>
 
 <router-outlet></router-outlet>

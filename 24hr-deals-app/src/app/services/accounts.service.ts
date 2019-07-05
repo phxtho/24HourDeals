@@ -9,6 +9,7 @@ import { AccountModel } from "../models/account/account-model";
 export class AccountService {
   apiUrl: string = "http://localhost:5000";
   private currentAccountId: string;
+  public isLoggedIn: boolean = false;
 
   constructor(private httpClient: HttpClient) {}
 
@@ -18,8 +19,8 @@ export class AccountService {
       .pipe(map(res => res));
   }
 
-  setCurrentAccountId(account) {
-    this.currentAccountId = account._id;
+  setCurrentAccountId(accountNumber: string) {
+    this.currentAccountId = accountNumber;
   }
 
   getCurrentAccountId() {
