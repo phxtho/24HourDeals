@@ -38,6 +38,9 @@ export class BasketPageComponent implements OnInit, OnDestroy {
       this.basketService.getBasket(userId).subscribe(res => {
         this.basketItems = res;
         this.totalPrice = this.getTotalPrice();
+        for (let basketItem of this.basketItems) {
+          console.log(basketItem);
+        }
       })
     );
   }

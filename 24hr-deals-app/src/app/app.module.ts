@@ -34,6 +34,8 @@ import { ChangePasswordPageComponent } from './components/change-password-page/c
 import { AccountPageComponent } from './components/account-page/account-page.component';
 import { ProductComponent } from "./components/product/product.component";
 import { BasketPageComponent } from "./components/basket-page/basket-page.component";
+import { TransactionHistoryPageComponent } from "./components/transaction-history-page/transaction-history-page.component";
+import { TransactionHistoryItemComponent } from "./components/transaction-history-item/transaction-history-item.component";
 
 @NgModule({
   declarations: [
@@ -48,7 +50,9 @@ import { BasketPageComponent } from "./components/basket-page/basket-page.compon
     SignupPageComponent,
     ChangePasswordPageComponent,
     AccountPageComponent,
-    ProductComponent
+    ProductComponent,
+    TransactionHistoryPageComponent,
+    TransactionHistoryItemComponent
   ],
   imports: [
     BrowserModule,
